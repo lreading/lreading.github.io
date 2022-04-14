@@ -5,16 +5,12 @@
     <p class="post-summary">
       Posted by : {% if page.author %}
       <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name"><a href="{{site.url}}{{site.baseurl}}/blog/authors/{{page.author}}">{{ page.author }}</a></span> </span
+        <span itemprop="name"><a href="{{ "/about" | prepend: site.baseurl | prepend: site.url }}">{{ page.author }}</a></span> </span
       >{% endif %} at
       <time datetime="{{ page.date }}" itemprop="datePublished"
         >{{ page.date | date: "%b %-d, %Y" }}</time
       >
     </p>
-    <span
-      class="disqus-comment-count"
-      data-disqus-identifier="{{ page.url }}"
-    ></span>
     <div class="post-categories">
       {% if post %} {% assign categories = post.categories %} {% else %} {%
       assign categories = page.categories %} {% endif %} Category : {% for
@@ -27,11 +23,13 @@
   </div>
 
   <div class="card-body" itemprop="articleBody">
+    {% if post.include_thumbnail %}
     <img
       class="card-img-top"
       src="{{site.url}}{{site.baseurl}}{{ page.thumbnail }}"
       alt="{{ post.title }}"
     />
+    {% endif %}
     <br />
     <br />
     {{ content }}
@@ -43,12 +41,7 @@
       {% include author.html %}
     {% endif %}
   </div>
-  {%- if site.hyvor_talk_website_id -%}
-  <div class="comments">
-    {%- include hyvor_comments.html -%}
-   </div>
-    {%- endif -%}
-  <!-- Incomment incase you want to use Disqus
+  <!-- Uncomment incase you want to use Disqus
       <div id="disqus_thread"></div>
    -->
 

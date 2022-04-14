@@ -9,7 +9,7 @@ layout: default
         <img src="{{site.url}}{{site.baseurl}}/assets/img/{{ site.author_logo }}" class="profile-img" />
       </a>
       <h1 class="profile-name">{{ site.title }}</h1>
-      <p class="profile-bio">{{ site.subtitle }}</p>
+      <p class="profile-bio">{{ site.author_bio }}</p>
       {% if site.github_username %} {%- include github_follow_button.html -%} {%
       endif %}
 
@@ -94,10 +94,17 @@ layout: default
     </div>
 
     <div class="card">
-      <h1>Skills</h1>
-
-      {%- include author_skills.html -%}
+      <h2>Favorite Tools</h2>
+      <p>
+        <ul>
+          <li><a href="https://www.github.com/owasp/threat-dragon" rel="noreferrer noopener" target="_blank">OWASP Threat Dragon</a></a></li>
+          <li><a href="https://github.com/jeremylong/DependencyCheck" rel="noreferrer noopener" target="_blank">OWASP Dependency Check</a></a></li>
+          <li><a href="https://github.com/AppThreat/cdxgen" rel="noreferrer noopener" target="_blank">cdxgen</a></a></li>
+          <li><a href="https://github.com/aquasecurity/trivy" rel="noreferrer noopener" target="_blank">Trivy</a></a></li>
+        </ul>
+      </p>
     </div>
+
 
     {% if site.wakatime_username %}
     <div class="card">
@@ -110,8 +117,8 @@ layout: default
   <div class="col-lg-8">
     {% if site.author_bio %}
     <div class="card">
-      <h1 class="card-title">About</h1>
-      <p>{{ site.author_bio }}</p>
+      <h1 class="card-title">About Leo</h1>
+      {% include_relative aboutme.md %}
     </div>
     {% endif %} {% if site.show_author_project_details == true %}
     <div id="author_projects" class="card">

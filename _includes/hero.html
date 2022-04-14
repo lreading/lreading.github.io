@@ -21,20 +21,21 @@
 <!-- home hero section -->
 <div class="jumbotron">
   <img class="author-profile-img" src="{{site.url}}{{site.baseurl}}/assets/img/{{site.author_logo}}" />
-  <p class="jumbotron-heading">Hi, I am {{site.author}} !</p>
+  <p class="jumbotron-heading">Hi. My name is {{site.author}}.</p>
 
-  <p class="lead" id="typewriteText"></p>
+  <div id="typewriter-container">
+    <p class="lead typewriter-text"></p>
+  </div>
+  
   <span>
-    {%- include github_star_button.html -%}
-    {%- include github_fork_button.html -%}
   </span>
   <!-- uncomment/modify buttons as you want-->
   <div class="jumbotron-btns">
-    <a href="{{site.url}}{{site.baseurl}}/get-started">
-      <button class="btn btn-md btn-warning"> <strong>Get Started</strong> </button>
+    <a href="{{site.url}}{{site.baseurl}}/blog">
+      <button class="btn btn-md btn-warning"> <strong>Incoherent Musings</strong> </button>
     </a>
-    <a id="olvy-target">
-      <button class="btn btn-md btn-default"> <strong>What's New</strong> </button>
-     </a>
+    <a href="{{site.url}}{{site.baseurl}}/about">
+      <button class="btn btn-md btn-default"><strong>$ whoami</strong> </button>
+    </a>
   </div>
 </div>

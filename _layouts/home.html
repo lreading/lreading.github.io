@@ -3,10 +3,21 @@ layout: full-width
 ---
 
 <script>
-  $(document).ready(function() {
-    $("#typewriteText").typewrite({
-      actions: [{ type: "{{site.typewrite-text}}" }]
+  var typewriter_texts = {{ site.data.typewriter_texts | jsonify }};
+
+  var typeText = function(text) {
+    $('.typewriter-text').typewrite({
+      actions: [{ type: text }]
     });
+  };
+
+  var typeRandomText = function() {
+    var text = typewriter_texts[Math.floor(Math.random() * typewriter_texts.length)];
+    typeText(text);
+  };
+
+  $(document).ready(function() {
+    typeRandomText();
   });
 </script>
     <!-- hero section-->

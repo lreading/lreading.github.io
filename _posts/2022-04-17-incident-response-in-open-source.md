@@ -36,7 +36,7 @@ We've come a long way with responsible disclosure and timely remediation, especi
 
 ## What Are You Proposing?
 I have already [proposed this](https://github.com/OWASP/threat-dragon/issues/419) to the Threat Dragon community, and am curious what the feedback will be.  This will be centered around GitHub's features specifically, but could be easily adapted to any source control or ticketing system.
-
+### 
 #### Incidents vs Vulnerabilities
 For this discussion, I consider Incidents as a security weakness that has been exploited, such as a data breach.  This often centers around infrastructure and data. Vulnerabilities are bugs in first/third-party software which makes the code vulnerable to attack/exploitation. 
 

@@ -3,8 +3,9 @@ layout: post
 title:  Openappsec on Microk8s
 summary: How to install Openappsec WAF on Microk8s
 author: leo
-date: '2023-03-07 20:00:00 -0400'
+date: '2023-03-07 00:00:00 -0400'
 category: security
+thumbnail: /assets/img/posts/pexels-erik-scheel-105194.jpg
 include_thumbnail: false
 keywords: security, open source, waf
 permalink: /blog/openappsec-on-microk8s/

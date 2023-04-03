@@ -12,6 +12,10 @@ permalink: /blog/openappsec-on-microk8s/
 usemathjax: true
 ---
 
+# TLDR
+This expirement didn't work out, it appears to not work _as of the time of writing_.  Always check with the source, as things could have changed!
+
+
 # What are these words?
 Openappsec is a Web Application Firewall (WAF) that is still in beta, and Microk8s is a lightweight kubernetes platform that isn't _often_ used for production deployments.  I am lazy and rely on microk8s for little VMs to do lots of work for me.  I also wanted to play with the new shiny toy on the market for WAFs. So while this is potentially an unusual scenario, it's very possible that there are others exploring this combination for testing.
 

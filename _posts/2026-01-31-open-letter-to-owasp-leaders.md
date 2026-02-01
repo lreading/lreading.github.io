@@ -18,7 +18,7 @@ I’m writing this publicly and transparently because I believe that is the spir
 
 Recently, project leaders were asked to provide feedback on the new website redesign through a private monday.com form, with no public discussion, no shared visibility into submitted feedback, and no follow-up conversation. Attempts to discuss concerns openly via email or Slack were redirected back to that same form.
 
-Respectfully, this approach feels at odds with the very first word in **Open Web Application Security Project**.
+Respectfully, this approach feels at odds with the very first word in **Open Worldwide Application Security Project**.
 
 OWASP’s strength has never come from forms or funnels.  
 It has always come from open collaboration, public discussion, and community ownership.
@@ -122,3 +122,7 @@ Respectfully,
 
 Leo Reading
 
+---
+Edit history:
+
+- 01/31/2026: Corrected OWASP name to use "Worldwide", it changed from "Web" years ago.  Thank you, Rick Mitchell!

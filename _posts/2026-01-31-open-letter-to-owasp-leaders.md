@@ -5,6 +5,7 @@ summary: 'A call for transparency, collaboration, and community engagement in OW
 author: leo
 date: '2026-01-31 00:00:00 -0400'
 category: security
+thumbnail: /assets/img/posts/OWASP_black_logo.svg
 include_thumbnail: false
 keywords: security, owasp
 permalink: /blog/owasp/open-letter-to-owasp-leadership-on-openness-community-and-engagement

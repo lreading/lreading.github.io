@@ -10,7 +10,8 @@
   <br />
 
   <ul>
-    {% for post in site.posts limit:5 %}
+    {% assign visible_posts = site.posts | visible_posts %}
+    {% for post in visible_posts limit:5 %}
     <li class="article-card">
       <a href="{{post.url}}" class="article-card-link">
         <div id="article-container">

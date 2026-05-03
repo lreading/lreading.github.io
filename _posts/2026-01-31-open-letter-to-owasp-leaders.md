@@ -10,6 +10,7 @@ include_thumbnail: false
 keywords: security, owasp
 permalink: /blog/owasp/open-letter-to-owasp-leadership-on-openness-community-and-engagement
 usemathjax: true
+hidden: true
 ---
 
 To OWASP leadership,
